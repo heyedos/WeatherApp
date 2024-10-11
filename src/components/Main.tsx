@@ -1,4 +1,3 @@
-import weatherJson from "../weather.json";
 import { useState } from "react";
 import { errorMsg, WeatherTypes } from "../types";
 export const Main = ({ setErrorMsg }: errorMsg) => {
@@ -118,7 +117,7 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
       <div
         className={
           " weather w-full bg-blue-900 flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md " +
-          (isError && " py-11")
+          (isError && " py-[2.75rem]")
         }
       >
         <h1 className="text-4xl">
@@ -142,9 +141,9 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
         <p>
           {isError
             ? "Local Time"
-            : days[new Date(weatherJson.location.localtime).getDay()] +
+            : days[new Date(weather.location.localtime).getDay()] +
               " " +
-              weatherJson.location.localtime.slice(11, 16)}
+              weather.location.localtime.slice(11, 16)}
         </p>
         <div className="flex items-center gap-8">
           <p>{isError ? "Cloud: " : "Cloud: " + weather.current.cloud + "%"}</p>
