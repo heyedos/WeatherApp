@@ -108,12 +108,12 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
           }}
         />
         <div
-          className="bg-slate-600 flex items-center cursor-pointer"
+          className="bg-slate-600 flex items-center cursor-pointer p-2"
           onClick={() => {
             getWeather();
           }}
         >
-          <img src="/assets/search.svg" alt="" />
+          <img src="/assets/images/search.svg" alt="" />
         </div>
       </div>
       <div
@@ -128,7 +128,7 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
             : weather.location.name + " , " + weather.location.country}
         </h1>
         <p className="text-xl">
-          {isError ? "degree" : weather.current.temp_c + "c degree"}
+          {isError ? "degree" : weather.current.temp_c + " °C degree"}
         </p>
         {isError ? (
           <div>Icon</div>

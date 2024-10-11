@@ -32,25 +32,12 @@ export const Weather = ({ weather }: weatherProp) => {
           <p>Image</p>
         )}
       </div>
-      <p className="text-xl">{weather ? weather.day.avgtemp_c : "Degree"}</p>
+      <p className="text-xl">
+        {weather ? weather.day.avgtemp_c + " °C" : "Degree"}
+      </p>
       <p className={cn({ "text-center w-40": weather })}>
         {weather ? weather.day.condition.text : "Condition"}
       </p>
     </div>
   );
 };
-
-{
-  /* <div className="weathers bg-blue-900 flex flex-col items-center text-gray-200 gap-1 w-1/4 py-1 rounded-md">
-                <h1 className="text-xl">{days[new Date(key.date).getDay()]}</h1>
-
-                <img
-                  className="w-12"
-                  src={key.day.condition.icon}
-                  alt="weatherIcon"
-                />
-
-                <p className="text-xl">{key.day.avgtemp_c}</p>
-                <p className="text-center w-40">{key.day.condition.text}</p>
-              </div>  */
-}
