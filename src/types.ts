@@ -24,7 +24,7 @@ interface dayTypes {
   avgtemp_c: string;
   condition: conditionTypes;
 }
-interface ForecastdayTypes {
+export interface ForecastdayTypes {
   date: string;
   day: dayTypes;
 }
@@ -42,4 +42,7 @@ export interface errorType {
 }
 export interface errorMsg {
   setErrorMsg: Function;
+}
+export interface weatherProp {
+  weather?: ForecastdayTypes | null;
 }

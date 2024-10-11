@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { errorMsg, WeatherTypes } from "../types";
+import { errorMsg, WeatherTypes, ForecastdayTypes } from "../types";
+import cn from "classnames";
+import { Weather } from "./Weather";
 export const Main = ({ setErrorMsg }: errorMsg) => {
   const days = [
     "Sunday",
@@ -93,10 +95,10 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
     }
   };
 
-  const nextDay = [1, 2, 3];
+  const nextDays = [1, 2, 3];
   return (
     <main className="w-1/2 items-center flex flex-col justify-between gap-6">
-      <div className="searchBar flex w-full overflow-hidden rounded-lg ">
+      <div className="searchBar flex w-full overflow-hidden rounded-xl ">
         <input
           type="text"
           placeholder="Search a city"
@@ -115,10 +117,10 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
         </div>
       </div>
       <div
-        className={
-          " weather w-full bg-blue-900 flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md " +
-          (isError && " py-[2.75rem] ")
-        }
+        className={cn(
+          " weather w-full bg-blue-900 flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md ",
+          { " py-10": isError }
+        )}
       >
         <h1 className="text-4xl">
           {isError
@@ -157,41 +159,9 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
       </div>
       <div className="botWeathers flex items-center justify-between w-full">
         {isError
-          ? nextDay.map(() => (
-              <div className="weathers bg-blue-900 flex flex-col items-center text-gray-200 gap-1 w-1/4 py-4 rounded-md">
-                <h1 className="text-xl">Day</h1>
-                <div>
-                  <p>Image</p>
-                </div>
-                <p className="text-xl">Degree</p>
-                <p>Condition</p>
-              </div>
-            ))
-          : weather.forecast.forecastday.map((key: any, index: number) => (
-              <div className="weathers bg-blue-900 flex flex-col items-center text-gray-200 gap-1 w-1/4 py-1 rounded-md">
-                <h1 className="text-xl">
-                  {
-                    days[
-                      new Date(
-                        weather.forecast.forecastday[index].date
-                      ).getDay()
-                    ]
-                  }
-                </h1>
-
-                <img
-                  className="w-12"
-                  src={weather.forecast.forecastday[index].day.condition.icon}
-                  alt="weatherIcon"
-                />
-
-                <p className="text-xl">
-                  {weather.forecast.forecastday[index].day.avgtemp_c}
-                </p>
-                <p className="text-center w-40">
-                  {weather.forecast.forecastday[index].day.condition.text}
-                </p>
-              </div>
+          ? nextDays.map(() => <Weather />)
+          : weather.forecast.forecastday.map((key: ForecastdayTypes) => (
+              <Weather weather={key} />
             ))}
       </div>
     </main>
