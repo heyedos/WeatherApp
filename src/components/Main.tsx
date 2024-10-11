@@ -97,7 +97,7 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
 
   const nextDays = [1, 2, 3];
   return (
-    <main className="w-1/2 items-center flex flex-col justify-between gap-6">
+    <main className="w-1/2 items-center flex flex-col justify-between gap-6 max-md:w-4/6">
       <div className="searchBar flex w-full overflow-hidden rounded-xl ">
         <input
           type="text"
@@ -122,7 +122,7 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
           { " py-10": isError }
         )}
       >
-        <h1 className="text-4xl">
+        <h1 className="text-4xl max-sm:text-xl">
           {isError
             ? "Name/Country"
             : weather.location.name + " , " + weather.location.country}
@@ -147,7 +147,7 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
               " " +
               weather.location.localtime.slice(11, 16)}
         </p>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-8 max-md:flex-col">
           <p>{isError ? "Cloud: " : "Cloud: " + weather.current.cloud + "%"}</p>
           <p>
             {isError ? "Wind: " : "Wind: " + weather.current.wind_mph + " mph"}
@@ -157,7 +157,7 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
           <p>{isError ? "Lon: " : "Lon: " + weather.location.lon}</p>
         </div>
       </div>
-      <div className="botWeathers flex items-center justify-between w-full">
+      <div className="botWeathers flex items-center justify-between w-full max-md:flex-col max-md:gap-4">
         {isError
           ? nextDays.map(() => <Weather />)
           : weather.forecast.forecastday.map((key: ForecastdayTypes) => (

@@ -14,7 +14,7 @@ export const Weather = ({ weather }: weatherProp) => {
   return (
     <div
       className={cn(
-        "weathers bg-blue-900 flex flex-col items-center text-gray-200 gap-1 w-1/4 rounded-md ",
+        "weathers bg-blue-900 flex flex-col items-center text-gray-200 gap-1 w-1/4 rounded-md max-md:w-full max-md:gap-2 ",
         { " py-4 ": !weather, " py-1 ": weather }
       )}
     >
