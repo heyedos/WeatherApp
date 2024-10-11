@@ -1,7 +1,7 @@
 import weatherJson from "../weather.json";
 import { useState } from "react";
-import { WeatherTypes } from "../types";
-export const Main = () => {
+import { errorMsg, WeatherTypes } from "../types";
+export const Main = ({ setErrorMsg }: errorMsg) => {
   const days = [
     "Sunday",
     "Monday",
@@ -11,7 +11,7 @@ export const Main = () => {
     "Friday",
     "Saturday",
   ];
-  const [searchInput, setSearchInput] = useState<string>();
+  const [searchInput, setSearchInput] = useState<string>("");
   const [weather, setWeather] = useState<WeatherTypes>({
     location: {
       name: "",
@@ -66,6 +66,7 @@ export const Main = () => {
     },
   });
   const [isError, setIsError] = useState<boolean>(true);
+
   const url = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${searchInput}&days=5`;
   const options = {
     method: "GET",
@@ -77,19 +78,26 @@ export const Main = () => {
 
   const getWeather = async () => {
     try {
+      setIsError(true);
       const response = await fetch(url, options);
       const result = await response.json();
       setWeather(result);
-      setIsError(false);
+      {
+        response.status === 200 && setIsError(false);
+      }
       console.log(result);
+      setErrorMsg(result.error?.message);
     } catch (error) {
-      console.error(error);
       setIsError(true);
+      setErrorMsg(error);
+      console.log(error);
     }
   };
+
+  const nextDay = [1, 2, 3];
   return (
     <main className="w-1/2 items-center flex flex-col justify-between gap-6">
-      <div className="searchBar flex w-full overflow-hidden rounded-lg">
+      <div className="searchBar flex w-full overflow-hidden rounded-lg ">
         <input
           type="text"
           placeholder="Search a city"
@@ -107,17 +115,22 @@ export const Main = () => {
           <img src="/assets/search.svg" alt="" />
         </div>
       </div>
-      <div className="weather w-full bg-blue-900 flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md">
+      <div
+        className={
+          " weather w-full bg-blue-900 flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md " +
+          (isError && " py-11")
+        }
+      >
         <h1 className="text-4xl">
           {isError
-            ? "N/A"
+            ? "Name/Country"
             : weather.location.name + " , " + weather.location.country}
         </h1>
         <p className="text-xl">
-          {isError ? "N/A" : weather.current.temp_c + "c degree"}
+          {isError ? "degree" : weather.current.temp_c + "c degree"}
         </p>
         {isError ? (
-          <div>N/A</div>
+          <div>Icon</div>
         ) : (
           <img
             src={weather.current.condition.icon}
@@ -125,57 +138,62 @@ export const Main = () => {
             className="w-1/12"
           />
         )}
-        <p>{isError ? "N/A" : weather.current.condition.text}</p>
+        <p>{isError ? "Condition" : weather.current.condition.text}</p>
         <p>
           {isError
-            ? "N/A"
+            ? "Local Time"
             : days[new Date(weatherJson.location.localtime).getDay()] +
               " " +
               weatherJson.location.localtime.slice(11, 16)}
         </p>
         <div className="flex items-center gap-8">
-          <p>{isError ? "N/A" : "Cloud: " + weather.current.cloud + "%"}</p>
+          <p>{isError ? "Cloud: " : "Cloud: " + weather.current.cloud + "%"}</p>
           <p>
-            {isError ? "N/A" : "Wind: " + weather.current.wind_mph + " mph"}
+            {isError ? "Wind: " : "Wind: " + weather.current.wind_mph + " mph"}
           </p>
-          <p>{isError ? "N/A" : weather.current.temp_f + "F Degree"}</p>
-          <p>{isError ? "N/A" : "Lat: " + weather.location.lat}</p>
-          <p>{isError ? "N/A" : "Lon: " + weather.location.lon}</p>
+          <p>{isError ? "F Degree" : weather.current.temp_f + "F Degree"}</p>
+          <p>{isError ? "LAT: " : "Lat: " + weather.location.lat}</p>
+          <p>{isError ? "Lon: " : "Lon: " + weather.location.lon}</p>
         </div>
       </div>
-      <div className="botWeathers flex items-center justify-between w-full ">
-        {weather.forecast.forecastday.map((key: any, index: number) => (
-          <div className="weathers bg-blue-900 flex flex-col items-center text-gray-200 gap-1 px-8 py-2">
-            <h1 className="text-xl">
-              {isError ? (
-                <p>N/A</p>
-              ) : (
-                days[
-                  new Date(weather.forecast.forecastday[index].date).getDay()
-                ]
-              )}
-            </h1>
-            {isError ? (
-              <div>not Found</div>
-            ) : (
-              <img
-                className="w-12"
-                src={weather.forecast.forecastday[index].day.condition.icon}
-                alt="weatherIcon"
-              />
-            )}
-            <p className="text-xl">
-              {isError
-                ? "N/A"
-                : weather.forecast.forecastday[index].day.avgtemp_c}
-            </p>
-            <p>
-              {isError
-                ? "N/A"
-                : weather.forecast.forecastday[index].day.condition.text}
-            </p>
-          </div>
-        ))}
+      <div className="botWeathers flex items-center justify-between w-full">
+        {isError
+          ? nextDay.map(() => (
+              <div className="weathers bg-blue-900 flex flex-col items-center text-gray-200 gap-1 w-1/4 py-4 rounded-md">
+                <h1 className="text-xl">Day</h1>
+                <div>
+                  <p>Image</p>
+                </div>
+                <p className="text-xl">Degree</p>
+                <p>Condition</p>
+              </div>
+            ))
+          : weather.forecast.forecastday.map((key: any, index: number) => (
+              <div className="weathers bg-blue-900 flex flex-col items-center text-gray-200 gap-1 w-1/4 py-1 rounded-md">
+                <h1 className="text-xl">
+                  {
+                    days[
+                      new Date(
+                        weather.forecast.forecastday[index].date
+                      ).getDay()
+                    ]
+                  }
+                </h1>
+
+                <img
+                  className="w-12"
+                  src={weather.forecast.forecastday[index].day.condition.icon}
+                  alt="weatherIcon"
+                />
+
+                <p className="text-xl">
+                  {weather.forecast.forecastday[index].day.avgtemp_c}
+                </p>
+                <p className="text-center w-40">
+                  {weather.forecast.forecastday[index].day.condition.text}
+                </p>
+              </div>
+            ))}
       </div>
     </main>
   );

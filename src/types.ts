@@ -37,3 +37,9 @@ export interface WeatherTypes {
   current: CurrentTypes;
   forecast: ForecastTypes;
 }
+export interface errorType {
+  errorMsg: string | undefined;
+}
+export interface errorMsg {
+  setErrorMsg: Function;
+}
