@@ -117,7 +117,7 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
       <div
         className={
           " weather w-full bg-blue-900 flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md " +
-          (isError && " py-[2.75rem]")
+          (isError && " py-[2.75rem] ")
         }
       >
         <h1 className="text-4xl">
