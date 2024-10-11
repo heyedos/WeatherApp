@@ -1,6 +1,8 @@
 import { errorType } from "../types";
 
 export const Header = ({ errorMsg }: errorType) => {
+  console.log(typeof errorMsg, errorMsg);
+
   return (
     <header className="w-full pl-8 pt-8 pb-4">
       <h1 className="text-white text-4xl">WeatherApp</h1>

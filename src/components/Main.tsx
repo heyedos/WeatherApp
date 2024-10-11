@@ -68,7 +68,7 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
   });
   const [isError, setIsError] = useState<boolean>(true);
 
-  const url = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${searchInput}&days=5`;
+  const url = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${searchInput}&days=3`;
   const options = {
     method: "GET",
     headers: {
@@ -76,26 +76,34 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
       "x-rapidapi-host": "weatherapi-com.p.rapidapi.com",
     },
   };
-
+  const [isLoading, setIsLoading] = useState(false);
   const getWeather = async () => {
     try {
-      setIsError(true);
+      setIsLoading(true);
       const response = await fetch(url, options);
       const result = await response.json();
-      setWeather(result);
-      {
-        response.status === 200 && setIsError(false);
+
+      if (response.ok) {
+        setWeather(result);
+        setIsError(false);
+        setErrorMsg(null);
+        setIsLoading(false);
+      } else {
+        throw {
+          error: true,
+          errorMsg: result.error.message,
+        };
       }
-      console.log(result);
-      setErrorMsg(result.error?.message);
-    } catch (error) {
+    } catch (error: any) {
+      console.error(error);
+      setErrorMsg(error?.errorMsg);
       setIsError(true);
-      setErrorMsg(error);
-      console.log(error);
+      setIsLoading(false);
     }
   };
 
   const nextDays = [1, 2, 3];
+  if (isLoading) return <div>loading..</div>;
   return (
     <main className="w-1/2 items-center flex flex-col justify-between gap-6 max-md:w-4/6">
       <div className="searchBar flex w-full overflow-hidden rounded-xl ">
@@ -103,6 +111,7 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
           type="text"
           placeholder="Search a city"
           className="bg-white w-full py-2 pl-2"
+          value={searchInput}
           onChange={(e) => {
             setSearchInput(e.currentTarget.value);
           }}
@@ -110,7 +119,9 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
         <div
           className="bg-slate-600 flex items-center cursor-pointer p-2"
           onClick={() => {
-            getWeather();
+            getWeather().then(() => {
+              setSearchInput("");
+            });
           }}
         >
           <img src="/assets/images/search.svg" alt="" />
