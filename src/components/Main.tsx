@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { errorMsg, WeatherTypes, ForecastdayTypes, queryProps } from "../types";
+import { errorMsg, ForecastdayTypes, queryProps } from "../types";
 import cn from "classnames";
 import { Weather } from "./Weather";
 import { useQuery } from "@tanstack/react-query";
@@ -14,66 +14,14 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
     "Saturday",
   ];
   const [searchInput, setSearchInput] = useState<string>("");
-  /* const [weather, setWeather] = useState<WeatherTypes>({
-    location: {
-      name: "",
-      country: "",
-      lat: "",
-      lon: "",
-      localtime: "",
-    },
-    current: {
-      condition: {
-        icon: "",
-        text: "",
-      },
-      cloud: "",
-      wind_mph: "",
-      temp_c: "",
-      temp_f: "",
-    },
-    forecast: {
-      forecastday: [
-        {
-          date: "",
-          day: {
-            avgtemp_c: "",
-            condition: {
-              text: "",
-              icon: "",
-            },
-          },
-        },
-        {
-          date: "",
-          day: {
-            avgtemp_c: "",
-            condition: {
-              text: "",
-              icon: "",
-            },
-          },
-        },
-        {
-          date: "",
-          day: {
-            avgtemp_c: "",
-            condition: {
-              text: "",
-              icon: "",
-            },
-          },
-        },
-      ],
-    },
-  }); */
-
-  const { isLoading, error, data, refetch, isError, isSuccess }: any = useQuery(
-    {
+  const { isLoading, error, data, refetch, isError, isSuccess }: queryProps =
+    useQuery({
       queryKey: ["repoData"],
       queryFn: async () => {
         const response = await fetch(url, options);
         const res = await response.json();
+        console.log(data);
+        setErrorMsg(null);
         if (!response.ok) {
           setErrorMsg(res.error.message);
           throw new Error(res.error.message);
@@ -81,10 +29,12 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
         return res;
       },
       enabled: false,
-    }
-  );
+      retry: false,
+      staleTime: Infinity,
+    });
   console.log(error + " test isError: " + isError + "");
   console.log(isSuccess);
+  console.log(data);
 
   const url = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${searchInput}&days=3`;
   const options = {
@@ -128,17 +78,17 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
       >
         <h1 className="text-4xl max-sm:text-xl">
           {isSuccess && !isError
-            ? data.location.name + " , " + data.location.country
+            ? data?.location.name + " , " + data?.location.country
             : "Name/Country"}
         </h1>
         <p className="text-xl">
           {isSuccess && !isError
-            ? data.current.temp_c + " °C degree"
+            ? data?.current.temp_c + " °C degree"
             : "degree"}
         </p>
         {isSuccess && !isError ? (
           <img
-            src={data.current.condition.icon}
+            src={data?.current.condition.icon}
             alt="weatherIcon"
             className="w-1/12"
           />
@@ -146,38 +96,44 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
           <div>Icon</div>
         )}
         <p>
-          {isSuccess && !isError ? data.current.condition.text : "Condition"}
+          {isSuccess && !isError ? data?.current.condition.text : "Condition"}
         </p>
         <p>
           {isSuccess && !isError
-            ? days[new Date(data.location.localtime).getDay()] +
+            ? days[
+                new Date(data?.location.localtime || "unValid Date").getDay()
+              ] +
               " " +
-              data.location.localtime.slice(11, 16)
+              data?.location.localtime.slice(11, 16)
             : "Local Time"}
         </p>
         <div className="flex items-center gap-8 max-md:flex-col">
           <p>
             {isSuccess && !isError
-              ? "Cloud: " + data.current.cloud + "%"
+              ? "Cloud: " + data?.current.cloud + "%"
               : "Cloud: "}
           </p>
           <p>
             {isSuccess && !isError
-              ? "Wind: " + data.current.wind_mph + " mph"
+              ? "Wind: " + data?.current.wind_mph + " mph"
               : "Wind: "}
           </p>
           <p>
             {isSuccess && !isError
-              ? data.current.temp_f + "F Degree"
+              ? data?.current.temp_f + "F Degree"
               : "F Degree"}
           </p>
-          <p>{isSuccess && !isError ? "Lat: " + data.location.lat : "LAT: "}</p>
-          <p>{isSuccess && !isError ? "Lon: " + data.location.lon : "Lon: "}</p>
+          <p>
+            {isSuccess && !isError ? "Lat: " + data?.location.lat : "LAT: "}
+          </p>
+          <p>
+            {isSuccess && !isError ? "Lon: " + data?.location.lon : "Lon: "}
+          </p>
         </div>
       </div>
       <div className="botWeathers flex items-center justify-between w-full max-md:flex-col max-md:gap-4">
         {isSuccess && !isError
-          ? data.forecast.forecastday.map(
+          ? data?.forecast.forecastday.map(
               (key: ForecastdayTypes, index: number) => (
                 <Weather weather={key} key={index} />
               )

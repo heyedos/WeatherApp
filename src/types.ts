@@ -47,9 +47,10 @@ export interface weatherProp {
   weather?: ForecastdayTypes | null;
 }
 export interface queryProps {
-  data: WeatherTypes | undefined | null | any;
-  error: any;
-  isLoading: boolean | null;
-  isSuccess: boolean | null;
+  data: WeatherTypes | undefined;
+  error: string | null;
+  isLoading: boolean;
+  isSuccess: boolean;
   refetch: Function;
+  isError: boolean;
 }
