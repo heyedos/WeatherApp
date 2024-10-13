@@ -1,7 +1,6 @@
 import { errorType } from "../types";
-
 export const Header = ({ errorMsg }: errorType) => {
-  console.log(typeof errorMsg, errorMsg);
+  /* console.log(typeof errorMsg, errorMsg); */
 
   return (
     <header className="w-full pl-8 pt-8 pb-4">

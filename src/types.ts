@@ -46,3 +46,10 @@ export interface errorMsg {
 export interface weatherProp {
   weather?: ForecastdayTypes | null;
 }
+export interface queryProps {
+  data: WeatherTypes | undefined | null | any;
+  error: any;
+  isLoading: boolean | null;
+  isSuccess: boolean | null;
+  refetch: Function;
+}
