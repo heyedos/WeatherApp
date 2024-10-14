@@ -37,20 +37,6 @@ export interface WeatherTypes {
   current: CurrentTypes;
   forecast: ForecastTypes;
 }
-export interface errorType {
-  errorMsg: string | undefined;
-}
-export interface errorMsg {
-  setErrorMsg: Function;
-}
 export interface weatherProp {
   weather?: ForecastdayTypes | null;
-}
-export interface queryProps {
-  data: WeatherTypes | undefined;
-  error: string | null;
-  isLoading: boolean;
-  isSuccess: boolean;
-  refetch: Function;
-  isError: boolean;
 }
