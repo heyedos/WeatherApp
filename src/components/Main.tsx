@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { errorMsg, ForecastdayTypes, queryProps } from "../types";
+import { ForecastdayTypes, queryProps } from "../types";
 import cn from "classnames";
 import { Weather } from "./Weather";
 import { useQuery } from "@tanstack/react-query";
-export const Main = ({ setErrorMsg }: errorMsg) => {
+export const Main = () => {
   const days = [
     "Sunday",
     "Monday",
@@ -14,16 +14,14 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
     "Saturday",
   ];
   const [searchInput, setSearchInput] = useState<string>("");
-  const { isLoading, error, data, refetch, isError, isSuccess }: queryProps =
-    useQuery({
+  const { isLoading, data, refetch, isError, isSuccess }: queryProps = useQuery(
+    {
       queryKey: ["repoData"],
       queryFn: async () => {
         const response = await fetch(url, options);
         const res = await response.json();
         console.log(data);
-        setErrorMsg(null);
         if (!response.ok) {
-          setErrorMsg(res.error.message);
           throw new Error(res.error.message);
         }
         return res;
@@ -31,10 +29,8 @@ export const Main = ({ setErrorMsg }: errorMsg) => {
       enabled: false,
       retry: false,
       staleTime: Infinity,
-    });
-  console.log(error + " test isError: " + isError + "");
-  console.log(isSuccess);
-  console.log(data);
+    }
+  );
 
   const url = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${searchInput}&days=3`;
   const options = {
