@@ -20,7 +20,6 @@ export const Main = () => {
       queryFn: async () => {
         const response = await fetch(url, options);
         const res = await response.json();
-        console.log(data);
         if (!response.ok) {
           throw new Error(res.error.message);
         }
