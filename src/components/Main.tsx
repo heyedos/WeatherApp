@@ -1,10 +1,14 @@
-import { useState } from "react";
+/* import { useEffect, useState } from "react";
 import { ForecastdayTypes } from "../types";
 import cn from "classnames";
 import { Weather } from "./Weather";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query"; */
+import { Right } from "./main/Right";
+import { Left } from "./main/Left";
+import cn from "classnames";
+import { useState } from "react";
 export const Main = () => {
-  const days = [
+  /* const days = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -12,74 +16,16 @@ export const Main = () => {
     "Thursday",
     "Friday",
     "Saturday",
-  ];
-  const nextDays = [1, 2, 3];
+  ]; */
+  /* const nextDays = [1, 2, 3];
   const [searchInput, setSearchInput] = useState<string>("");
-  const url = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${searchInput}&days=3`;
-  const options = {
-    method: "GET",
-    headers: {
-      "x-rapidapi-key": "aa6e1c2801msh0e44508236e744ep13c39fjsnac0d5b66848a",
-      "x-rapidapi-host": "weatherapi-com.p.rapidapi.com",
-    },
-  };
-  /* const userQueries = useQueries({
-    queries: [
-      {
-        queryKey: ["repoData"],
-        queryFn: async () => {
-          const response = await fetch(url, options);
-          const res = await response.json();
-          if (!response.ok) {
-            throw new Error(res.error.message);
-          }
-          return res;
-        },
-        enabled: false,
-        retry: false,
-        staleTime: Infinity,
-      },
-      {
-        queryKey: ["repoData2"],
-        queryFn: async () => {
-          const response = await fetch(
-            "https://weatherapi-com.p.rapidapi.com/forecast.json?q=paris&days=3",
-            options
-          );
-          const res = await response.json();
-          if (!response.ok) {
-            throw new Error(res.error.message);
-          }
-          return res;
-        },
-        enabled: false,
-        retry: false,
-        staleTime: Infinity,
-      },
-    ],
-  });
-  const { isLoading, data, refetch, isError, isSuccess } = userQueries[0]; */
+  const [lon, setLon] = useState<string>();
+  const [lat, setLat] = useState<string>(); */
 
-  /* const fetchapi = async () => {
-    const response = await fetch("url").then((response) => response.json());
-  };
-  const fetchapi2 = async () => {
-    const response = await fetch("url").then((response) => response.json());
-  };
-  const fetchapi3 = async () => {
-    const response = await fetch("url").then((response) => response.json());
-  };
-  Promise.all([fetchapi, fetchapi2, fetchapi3]).then((results) => {
-    const [data1, data2, data3] = results;
-    console.log("data1: " + data1);
-    console.log("data2: " + data2);
-    console.log("data3: " + data3);
-  }); */
-
-  const mutation = useMutation({
+  /*  const mutation = useMutation({
     mutationKey: ["repoData"],
     mutationFn: async () => {
-      const response = await fetch(url, options);
+      const response = await fetch("url");
       const res = await response.json();
       setSearchInput("");
       if (!response.ok) {
@@ -87,111 +33,97 @@ export const Main = () => {
       }
       return res;
     },
-  });
+  }); */
 
-  if (mutation.isPending) return <div>isLoading...</div>;
+  /* useEffect(() => {
+    const handleLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+      } else {
+        console.log("Geolocation is not supported");
+      }
+    };
+    handleLocation();
+    function success(position: any) {
+      setLat(position.coords.latitude);
+      setLon(position.coords.longitude);
+      console.log(
+        `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`
+      );
+    }
+    function error() {
+      console.log("Unable to retrieve your location");
+    }
+  }, []); */
 
+  /* const fetchWeather = async () => {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${searchInput}&appid=81f21fae0eae35404c85514685353bfe`
+    );
+    const res = await response.json();
+    console.log(res);
+    return res;
+  }; */
+  /* const fetchLocationName = async () => {
+    const response = await fetch(
+      `https://us1.locationiq.com/v1/reverse?key=pk.2fd7ccf82e202634c8d70cc1597769e7&lat=${lat}&lon=${lon}&format=json&`
+    );
+    const res = await response.json();
+    return res;
+  }; */
+  /* const { refetch, data } = useQuery({
+    queryKey: ["forecast"],
+    queryFn: () => fetchWeather(),
+    enabled: false,
+  }); */
+  /* const location = useQuery({
+    queryKey: ["location"],
+    queryFn: () => fetchLocationName(),
+    enabled: false,
+  }); */
+
+  /* if (mutation.isPending) return <div>isLoading...</div>; */
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>("");
   return (
-    <main className="w-1/2 items-center flex flex-col justify-between gap-6 max-md:w-4/6">
-      <div className="searchBar flex w-full overflow-hidden rounded-xl ">
-        <input
-          type="text"
-          placeholder="Search a city"
-          className="bg-white w-full py-2 pl-2"
-          value={searchInput}
-          onChange={(e) => {
-            setSearchInput(e.currentTarget.value);
-          }}
-        />
+    <div>
+      <div className="search w-full flex items-center justify-end gap-8 pr-8">
         <div
-          className="bg-slate-600 flex items-center cursor-pointer p-2"
-          onClick={() => {
-            mutation.mutate();
+          className={cn(
+            "bg-gray-600 rounded-full p-4 relative w-4 transition-all duration-1000 hover:transition-[50%] ease-linear",
+            { " w-1/2 ": isHovered }
+          )}
+          onMouseEnter={() => {
+            setIsHovered(true);
+          }}
+          onMouseLeave={() => {
+            setIsHovered(false);
           }}
         >
-          <img src="/assets/images/search.svg" alt="" />
-        </div>
-      </div>
-      <div
-        className={cn(
-          " weather w-full bg-blue-900 flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md ",
-          { " py-10": mutation.isSuccess && !mutation.isError }
-        )}
-      >
-        <h1 className="text-4xl max-sm:text-xl">
-          {mutation.isSuccess && !mutation.isError
-            ? mutation.data?.location.name +
-              " , " +
-              mutation.data?.location.country
-            : "Name/Country"}
-        </h1>
-        <p className="text-xl">
-          {mutation.isSuccess && !mutation.isError
-            ? mutation.data?.current.temp_c + " °C degree"
-            : "degree"}
-        </p>
-        {mutation.isSuccess && !mutation.isError ? (
           <img
-            src={mutation.data?.current.condition.icon}
-            alt="weatherIcon"
-            className="w-1/12"
+            src="../../assets/images/search.svg"
+            alt=""
+            className="w-6 absolute top-1 right-1 z-10 cursor-pointer "
           />
-        ) : (
-          <div>Icon</div>
-        )}
-        <p>
-          {mutation.isSuccess && !mutation.isError
-            ? mutation.data?.current.condition.text
-            : "Condition"}
-        </p>
-        <p>
-          {mutation.isSuccess && !mutation.isError
-            ? days[
-                new Date(
-                  mutation.data?.location.localtime || "unValid Date"
-                ).getDay()
-              ] +
-              " " +
-              mutation.data?.location.localtime.slice(11, 16)
-            : "Local Time"}
-        </p>
-        <div className="flex items-center gap-8 max-md:flex-col">
-          <p>
-            {mutation.isSuccess && !mutation.isError
-              ? "Cloud: " + mutation.data?.current.cloud + "%"
-              : "Cloud: "}
-          </p>
-          <p>
-            {mutation.isSuccess && !mutation.isError
-              ? "Wind: " + mutation.data?.current.wind_mph + " mph"
-              : "Wind: "}
-          </p>
-          <p>
-            {mutation.isSuccess && !mutation.isError
-              ? mutation.data?.current.temp_f + "F Degree"
-              : "F Degree"}
-          </p>
-          <p>
-            {mutation.isSuccess && !mutation.isError
-              ? "Lat: " + mutation.data?.location.lat
-              : "LAT: "}
-          </p>
-          <p>
-            {mutation.isSuccess && !mutation.isError
-              ? "Lon: " + mutation.data?.location.lon
-              : "Lon: "}
-          </p>
+          {isHovered && (
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => {
+                setInputValue(e.currentTarget.value);
+              }}
+              className=" outline-none absolute top-0 bg-slate-600 right-0 rounded-full border-b-0 w-full h-full pl-3 z-0  "
+            />
+          )}
+        </div>
+        <div className="bg-gray-700 px-4 py-1 rounded-2xl border-gray-300 border border-b-0">
+          <p className="text-white text-xl">More Page</p>
         </div>
       </div>
-      <div className="botWeathers flex items-center justify-between w-full max-md:flex-col max-md:gap-4">
-        {mutation.isSuccess && !mutation.isError
-          ? mutation.data?.forecast.forecastday.map(
-              (key: ForecastdayTypes, index: number) => (
-                <Weather weather={key} key={index} />
-              )
-            )
-          : nextDays.map((_, index: number) => <Weather key={index} />)}
+      <div className="container flex items-center px-6">
+        <Left />
+        <Right />
       </div>
-    </main>
+    </div>
   );
 };
