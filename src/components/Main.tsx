@@ -16,26 +16,33 @@ export const Main = () => {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?q=${inputValue}&appid=81f21fae0eae35404c85514685353bfe`
     );
-    if (!response.ok) {
-      throw new Error("error");
-    }
+
     const res = await response.json();
+    if (!response.ok) {
+      throw new Error(res.message);
+    }
     console.log(res);
     return res;
   };
-  const { data, refetch } = useQuery({
+  const { refetch, error, isError }: any = useQuery({
     queryKey: ["forecast"],
     queryFn: () => fetchWeather(),
     enabled: false,
-    placeholderData: keepPreviousData,
     staleTime: 10000,
+    retry: 1,
+    placeholderData: keepPreviousData,
   });
 
-  console.log(data);
+  console.log(error + " isError: " + isError);
 
   return (
     <div>
       <div className="search w-full flex items-center justify-end gap-8 pr-8">
+        {/* {isError && (
+          <div>
+            <p className="text-3xl text-red-600">{error}</p>
+          </div>
+        )} */}
         <div
           className={cn(
             "bg-gray-600 rounded-full p-4 relative w-4 transition-all duration-1000 hover:transition-[50%] ease-linear",
@@ -53,9 +60,7 @@ export const Main = () => {
             alt=""
             className="w-6 absolute top-1 right-1 z-10 cursor-pointer "
             onClick={() => {
-              refetch().then(() => {
-                setInputValue("");
-              });
+              refetch();
             }}
           />
           {isHovered && (
