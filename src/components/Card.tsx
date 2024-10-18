@@ -5,8 +5,6 @@ export const Card = () => {
     queryKey: ["forecast"],
     enabled: false,
   });
-  console.log(isError);
-
   return (
     <div className="w-1/4 bg-gray-700 opacity-90 py-8 flex flex-col items-center border-white border rounded-3xl gap-6">
       <h1 className="text-white text-2xl text-center">WeatherWise</h1>
@@ -62,7 +60,7 @@ export const Card = () => {
         </div>
         <div className="bg-gray-800 px-6 py-2 rounded-3xl">
           <p className="text-white">
-            {isError ? "Error" : data?.city.name + " " + data?.city.country}
+            {isLoading ? "Loading" : data?.city.name + " " + data?.city.country}
           </p>
         </div>
       </div>
