@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 export const Chart = () => {
-  const { data, isLoading, isError }: any = useQuery({
+  const { data, isLoading }: any = useQuery({
     queryKey: ["forecast"],
     enabled: false,
   });

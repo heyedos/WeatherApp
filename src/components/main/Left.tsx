@@ -1,4 +1,4 @@
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 export const Left = () => {
@@ -46,7 +46,7 @@ export const Left = () => {
     console.log(res);
     return res;
   };
-  const { data, isLoading, isError, error }: any = useQuery({
+  const { data, isLoading }: any = useQuery({
     queryKey: ["forecast"],
     queryFn: () => fetchWeatherDays(),
     enabled: !!handleLocation && !!lat && !!lon,

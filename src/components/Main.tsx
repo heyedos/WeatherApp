@@ -24,29 +24,24 @@ export const Main = () => {
     console.log(res);
     return res;
   };
-  const { refetch, error, isError }: any = useQuery({
+  const { refetch }: any = useQuery({
     queryKey: ["forecast"],
     queryFn: () => fetchWeather(),
     enabled: false,
     staleTime: 10000,
-    retry: 1,
+    retry: false,
     placeholderData: keepPreviousData,
   });
-
-  console.log(error + " isError: " + isError);
 
   return (
     <div>
       <div className="search w-full flex items-center justify-end gap-8 pr-8">
-        {/* {isError && (
-          <div>
-            <p className="text-3xl text-red-600">{error}</p>
-          </div>
-        )} */}
         <div
           className={cn(
-            "bg-gray-600 rounded-full p-4 relative w-4 transition-all duration-1000 hover:transition-[50%] ease-linear",
-            { " w-1/2 ": isHovered }
+            "bg-gray-600 rounded-full p-4 relative w-1/2 transition-all duration-500 hover:transition-[50%] ease-linear",
+            {
+              "w-4": !isHovered,
+            }
           )}
           onMouseEnter={() => {
             setIsHovered(true);
@@ -70,7 +65,7 @@ export const Main = () => {
               onChange={(e) => {
                 setInputValue(e.currentTarget.value);
               }}
-              className=" outline-none absolute top-0 bg-slate-600 right-0 rounded-full border-b-0 w-full h-full pl-3 z-0  "
+              className=" outline-none absolute top-0 bg-slate-600 right-0 rounded-full border-b-0 h-full pl-3 z-0 w-full"
             />
           )}
         </div>

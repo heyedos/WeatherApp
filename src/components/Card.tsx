@@ -1,7 +1,7 @@
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export const Card = () => {
-  const { isError, data, isLoading }: any = useQuery({
+  const { data, isLoading }: any = useQuery({
     queryKey: ["forecast"],
     enabled: false,
   });
