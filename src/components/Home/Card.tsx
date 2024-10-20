@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export const Card = () => {
+  const navigate = useNavigate();
   const { data, isLoading }: any = useQuery({
     queryKey: ["forecast"],
     enabled: false,
@@ -24,7 +26,14 @@ export const Card = () => {
           </div>
           <div className="w-full h-28"></div>
         </div>
-        <div className="text-white text-center">
+        <div
+          className="text-white text-center cursor-pointer"
+          onClick={() => {
+            if (data?.city.name.trim()) {
+              navigate(`/${data?.city.name.toLowerCase()}`);
+            }
+          }}
+        >
           <p>See Moredetails {">"}</p>
         </div>
       </div>
