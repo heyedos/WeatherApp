@@ -83,7 +83,7 @@ export const Main = () => {
           <p className="text-white text-xl">Download App</p>
         </div>
       </div>
-      <div className="container flex items-center px-6">
+      <div className="container flex items-center px-6 max-xl:flex-col max-xl:gap-8">
         <Left />
         <Right />
       </div>

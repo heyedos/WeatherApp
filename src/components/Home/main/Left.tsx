@@ -41,12 +41,11 @@ export const Left = () => {
     );
     const res = await response.json();
     if (!response.ok) {
-      throw new Error(res);
+      throw res;
     }
-    console.log(res);
     return res;
   };
-  const { data, isLoading }: any = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["forecast"],
     queryFn: () => fetchWeatherDays(),
     enabled: !!handleLocation && !!lat && !!lon,
@@ -54,7 +53,7 @@ export const Left = () => {
 
   if (isLoading) return <div>Loading...</div>;
   return (
-    <div className="left bars w-9/12 flex flex-col gap-12 items-start">
+    <div className="left bars w-9/12 flex flex-col gap-12 items-start max-xl:w-full">
       <div className="location w-full flex items-center justify-start gap-4">
         <img src="../../assets/images/location.svg" alt="" className="w-6" />
         <p className="text-2xl text-white">

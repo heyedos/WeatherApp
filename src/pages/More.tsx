@@ -9,7 +9,6 @@ export const More = () => {
     refetchOnWindowFocus: false,
   });
 
-  console.log(data);
   return (
     <main className="w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 ">
       <div className=" weather  flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md bg-slate-800 px-4 ">

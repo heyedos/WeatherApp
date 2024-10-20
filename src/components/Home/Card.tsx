@@ -8,7 +8,7 @@ export const Card = () => {
     enabled: false,
   });
   return (
-    <div className="w-1/4 bg-gray-700 opacity-90 py-8 flex flex-col items-center border-white border rounded-3xl gap-6">
+    <div className="w-1/4 bg-gray-700 opacity-90 py-8 flex flex-col items-center border-white border rounded-3xl gap-6 max-md:w-2/3    max-md:order-2">
       <h1 className="text-white text-2xl text-center">WeatherWise</h1>
       <div className="flex flex-col w-11/12 gap-2 ">
         <p className="text-start text-gray-400 pl-1">Status</p>

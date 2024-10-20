@@ -1,6 +1,6 @@
 export const Right = () => {
   return (
-    <div className="right bars w-4/12 flex flex-col gap-12 items-end">
+    <div className="right bars w-4/12 flex flex-col gap-12 items-end max-xl:w-full">
       <div className="desc text-base text-white">
         <p>
           With real time data and advanced technology, we provide reliable
