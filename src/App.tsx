@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Home />} />
-          <Route path="/:city" element={<More />} />
+          <Route path="/:city" element={<More />} errorElement={<More />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
