@@ -1,6 +1,6 @@
 import { Main } from "../components/Home/Main";
-import { Chart } from "../components/Home/Chart";
 import { Card } from "../components/Home/Card";
+import { LineChart } from "../components/Home/LineChart";
 
 export const Home = () => {
   return (
@@ -8,7 +8,7 @@ export const Home = () => {
       <Card />
       <div className="flex flex-col items-center w-3/4 max-md:w-full">
         <Main />
-        <Chart />
+        <LineChart />
       </div>
     </main>
   );

@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { Chart } from "./Chart";
 
 ChartJS.register(
   CategoryScale,
@@ -21,7 +22,7 @@ ChartJS.register(
   Legend
 );
 
-export const Bars = () => {
+export const LineChart = () => {
   const array = [6, 14, 22, 30, 38];
   const days = [
     "Sunday",
@@ -52,7 +53,7 @@ export const Bars = () => {
         data: array.map((key) =>
           (apiData.data.list[key].main.temp - 273.15).toPrecision(3)
         ),
-        borderColor: "red",
+        borderColor: "white",
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         pointRadius: 0,
         fill: false,
@@ -67,7 +68,7 @@ export const Bars = () => {
         display: false,
       },
       tooltip: {
-        enabled: true,
+        enabled: false,
       },
     },
     elements: {
@@ -75,7 +76,7 @@ export const Bars = () => {
         radius: 5,
       },
       line: {
-        tension: 0.4,
+        tension: 0.5,
       },
     },
     scales: {
@@ -85,8 +86,16 @@ export const Bars = () => {
           display: false,
         },
         ticks: {
-          callback: function (val: any, index: any) {
-            return data.datasets[0].data[index];
+          font: {
+            size: 16,
+          },
+          color: "white",
+          callback: function (_: any, index: any) {
+            return (
+              data.datasets[0].data[index] +
+              " " +
+              apiData?.data?.list[array[index]].weather[0].description
+            );
           },
           padding: 10,
         },
@@ -94,7 +103,11 @@ export const Bars = () => {
       x2: {
         position: "top",
         ticks: {
-          callback: function (val: any, index: any) {
+          font: {
+            size: 16,
+          },
+          color: "white",
+          callback: function (_: any, index: any) {
             return labels[index];
           },
           padding: 10,
@@ -114,8 +127,9 @@ export const Bars = () => {
   };
 
   return (
-    <div className="w-full">
-      <Line data={data} options={options} />
+    <div className="w-full  pt-4">
+      <Line data={data} options={options} height={15} width={"100%"} />
+      <Chart />
     </div>
   );
 };
