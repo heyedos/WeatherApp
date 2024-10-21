@@ -99,14 +99,8 @@ export const LineChart = () => {
       x2: {
         position: "top",
         ticks: {
-          /* font: {
-            weight: "bold",
-          }, */
           color: "white",
           callback: function (_: any, index: any) {
-            /* return apiData.isSuccess && !apiData.isError
-              ? labels[index]
-              : "error"; */
             return apiData.data
               ? labels[index]
               : apiData.isError

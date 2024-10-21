@@ -1,20 +1,13 @@
-/* import { useEffect, useState } from "react";
-import { ForecastdayTypes } from "../types";
-import cn from "classnames";
-import { Weather } from "./Weather";
-import { useMutation, useQuery } from "@tanstack/react-query"; */
 import { Right } from "./main/Right";
 import { Left } from "./main/Left";
 import cn from "classnames";
 import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-/* import { useNavigate } from "react-router-dom"; */
 
 export const Main = () => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
-  /*   const nagivate = useNavigate(); */
 
   const fetchWeather = async () => {
     const response = await fetch(
