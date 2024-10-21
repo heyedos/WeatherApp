@@ -36,6 +36,7 @@ export const LineChart = () => {
   const apiData: any = useQuery({
     queryKey: ["forecast"],
     enabled: false,
+    refetchOnWindowFocus: false,
   });
   if (apiData.isLoading) return <div>Loading...</div>;
   const labels = array.map((key): string => {
@@ -84,16 +85,13 @@ export const LineChart = () => {
         ticks: {
           color: "white",
           callback: function (_: any, index: any) {
-            /* return apiData.isSuccess && !apiData.isError
+            return apiData.data
               ? data.datasets[0].data[index] +
                   " " +
                   apiData?.data?.list[array[index]].weather[0].description
-              : "loading"; */
-            return (
-              data.datasets[0].data[index] +
-              " " +
-              apiData?.data?.list[array[index]].weather[0].description
-            );
+              : apiData.isError
+              ? "error"
+              : "loading";
           },
           padding: 10,
         },
@@ -109,7 +107,11 @@ export const LineChart = () => {
             /* return apiData.isSuccess && !apiData.isError
               ? labels[index]
               : "error"; */
-            return labels[index];
+            return apiData.data
+              ? labels[index]
+              : apiData.isError
+              ? "error"
+              : "loading";
           },
           padding: 10,
         },

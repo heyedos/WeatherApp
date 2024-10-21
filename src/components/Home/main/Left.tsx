@@ -45,10 +45,11 @@ export const Left = () => {
     }
     return res;
   };
-  const { data, isLoading /*  isSuccess, isError */ } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["forecast"],
     queryFn: () => fetchWeatherDays(),
     enabled: !!handleLocation && !!lat && !!lon,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) return <div>Loading...</div>;
@@ -57,64 +58,65 @@ export const Left = () => {
       <div className="location w-full flex items-center justify-start gap-4">
         <img src="../../assets/images/location.svg" alt="" className="w-6" />
         <p className="text-2xl text-white">
-          {/* {isSuccess && !isError
+          {data
             ? data?.city.name + " " + data?.city.country
-            : "error"} */}
-          {data?.city.name + " " + data?.city.country}
+            : isError
+            ? "error"
+            : "loading"}
           <span className="text-gray-600">
-            {/* (
-            {isSuccess && !isError
+            (
+            {data
               ? new Date(data?.list[0].dt * 1000)
                   .toLocaleDateString("en-US", options)
                   .slice(0, 18)
-              : "error"}
-            ) */}
-            (
-            {new Date(data?.list[0].dt * 1000)
-              .toLocaleDateString("en-US", options)
-              .slice(0, 18)}
+              : isError
+              ? "error "
+              : "loading"}
             )
           </span>
         </p>
       </div>
       <div className="degree flex items-center gap-4">
         <h1 className="text-7xl text-white">
-          {/* {isSuccess && !isError
+          {data
             ? (data?.list[0].main.temp - 273.15).toPrecision(2) + "°"
-            : "error"} */}
-          {(data?.list[0].main.temp - 273.15).toPrecision(2) + "°"}
+            : isError
+            ? "error"
+            : "loading"}
         </h1>
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-6 bg-slate-700 px-5 py-1 rounded-full">
             <p className="text-gray-500">H</p>
             <p className="text-white">
-              {/* {isSuccess && !isError
+              {data
                 ? (data?.list[0].main.temp_max - 273.15).toPrecision(2) + "°"
-                : "error"} */}
-              {(data?.list[0].main.temp_max - 273.15).toPrecision(2) + "°"}
+                : isError
+                ? "error"
+                : "loading"}
             </p>
           </div>
           <div className="flex items-center gap-6 bg-slate-700 px-5 py-1 rounded-full">
             <p className="text-gray-500">L</p>
             <p className="text-white">
-              {/* {isSuccess && !isError
+              {data
                 ? (data?.list[0].main.temp_min - 273.15).toPrecision(2) + "°"
-                : "error"} */}
-              {(data?.list[0].main.temp_min - 273.15).toPrecision(2) + "°"}
+                : isError
+                ? "error"
+                : "loading"}
             </p>
           </div>
         </div>
       </div>
       <div className="weatherCond flex flex-col gap-2">
         <p className="text-6xl text-gray-600">
-          {/* {isSuccess && !isError ? data?.list[0].weather[0].main : "error"} */}
-          {data?.list[0].weather[0].main}
+          {data ? data?.list[0].weather[0].main : isError ? "error" : "loading"}
         </p>
         <p className="text-6xl text-gray-600">
-          {/* {isSuccess && !isError
+          {data
             ? data?.list[0].weather[0].description
-            : "error"} */}
-          {data?.list[0].weather[0].description}
+            : isError
+            ? "error"
+            : "loading"}
         </p>
       </div>
     </div>

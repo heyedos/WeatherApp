@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 export const Chart = () => {
-  const { data, isLoading /* isSuccess, isError */ }: any = useQuery({
+  const { data, isLoading, isError }: any = useQuery({
     queryKey: ["forecast"],
     enabled: false,
+    refetchOnWindowFocus: false,
   });
   const array = [6, 14, 22, 30, 38];
   if (isLoading)
@@ -15,7 +16,7 @@ export const Chart = () => {
     <div className="w-full flex items-center justify-between pl-2">
       {array.map((key) => (
         <div className="pl-2 pr-3 max-md:px-0">
-          {/* {isSuccess && !isError ? (
+          {data ? (
             <img
               src={
                 "http://openweathermap.org/img/w/" +
@@ -25,20 +26,11 @@ export const Chart = () => {
               alt=""
               className="w-16"
             />
+          ) : isError ? (
+            "error"
           ) : (
-            <div className="w-16">error</div>
-          )} */}
-          {
-            <img
-              src={
-                "http://openweathermap.org/img/w/" +
-                data?.list[key].weather[0].icon +
-                ".png"
-              }
-              alt=""
-              className="w-16"
-            />
-          }
+            "loading"
+          )}
         </div>
       ))}
     </div>

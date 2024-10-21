@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 export const Card = () => {
   const navigate = useNavigate();
-  const { data, isLoading /* isError, isSuccess */ }: any = useQuery({
+  const { data, isLoading, isError }: any = useQuery({
     queryKey: ["forecast"],
     enabled: false,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) return <div>Loading...</div>;
@@ -71,10 +72,11 @@ export const Card = () => {
         </div>
         <div className="bg-gray-800 px-6 py-2 rounded-3xl">
           <p className="text-white">
-            {/* {isSuccess && !isError
-              ? data?.city.name + " " + data?.city.country
-              : "error"} */}
-            {data?.city.name + " " + data?.city.country}
+            {data
+              ? data.city.name + " " + data.city.country
+              : isError
+              ? "error"
+              : "loading"}
           </p>
         </div>
       </div>

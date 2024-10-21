@@ -10,17 +10,17 @@ export const More = () => {
   });
 
   return (
-    <main className="w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 ">
+    <main className="w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 text-center">
       <div className=" weather  flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md bg-slate-800 px-4 ">
         <h1 className="text-4xl max-sm:text-xl">
           {city?.toUpperCase()} / {data.city.country}
         </h1>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 max-md:flex-col">
           <p className="text-2xl">{"LAT: " + data.city.coord.lat}</p>
           <p className="text-2xl">{"LON: " + data.city.coord.lon}</p>
         </div>
         <p className="text-2xl">{"Population: " + data.city.population}</p>
-        <div className="flex items-center gap-4 text-2xl">
+        <div className="flex items-center gap-4 text-2xl max-md:flex-col">
           <p>
             {"Sunrise: " +
               new Date(data.city.sunrise * 1000).toLocaleTimeString()}
@@ -33,7 +33,7 @@ export const More = () => {
         <p className="text-2xl">
           {"Current Time: " + new Date().toLocaleTimeString()}
         </p>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-8 max-md:flex-col">
           <h1 className="text-3xl">
             {"Temp: " + (data?.list[0].main.temp - 273.15).toPrecision(2) + "°"}
           </h1>
