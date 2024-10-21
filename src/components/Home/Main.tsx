@@ -34,7 +34,6 @@ export const Main = () => {
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
   });
-  console.log(error?.message);
 
   return (
     <div>

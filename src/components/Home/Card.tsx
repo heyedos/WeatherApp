@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Card = () => {
   const navigate = useNavigate();
-  const { data, isLoading, isError, isSuccess }: any = useQuery({
+  const { data, isLoading /* isError, isSuccess */ }: any = useQuery({
     queryKey: ["forecast"],
     enabled: false,
   });
@@ -36,7 +36,7 @@ export const Card = () => {
             }
           }}
         >
-          <p>See Moredetails {">"}</p>
+          <p>See More details {">"}</p>
         </div>
       </div>
       <div className="flex flex-col w-full items-center gap-4">
@@ -71,9 +71,10 @@ export const Card = () => {
         </div>
         <div className="bg-gray-800 px-6 py-2 rounded-3xl">
           <p className="text-white">
-            {isSuccess && !isError
+            {/* {isSuccess && !isError
               ? data?.city.name + " " + data?.city.country
-              : "Loading"}
+              : "error"} */}
+            {data?.city.name + " " + data?.city.country}
           </p>
         </div>
       </div>

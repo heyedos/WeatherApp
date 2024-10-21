@@ -37,11 +37,9 @@ export const LineChart = () => {
     queryKey: ["forecast"],
     enabled: false,
   });
-
-  if (!apiData.data) return <div>Loading...</div>;
-
+  if (apiData.isLoading) return <div>Loading...</div>;
   const labels = array.map((key): string => {
-    return days[new Date(apiData.data.list[key].dt_txt.slice(0, 10)).getDay()];
+    return days[new Date(apiData.data?.list[key].dt_txt.slice(0, 10)).getDay()];
   });
 
   const data: any = {
@@ -50,7 +48,7 @@ export const LineChart = () => {
       {
         label: "Temperature Data",
         data: array.map((key) =>
-          (apiData.data.list[key].main.temp - 273.15).toPrecision(3)
+          (apiData.data?.list[key].main.temp - 273.15).toPrecision(3)
         ),
         borderColor: "white",
         backgroundColor: "rgba(255, 99, 132, 0.2)",
@@ -74,7 +72,7 @@ export const LineChart = () => {
     elements: {
       line: {
         tension: 0.5,
-        borderWidth: 1.5,
+        borderWidth: 1.25,
       },
     },
     scales: {
@@ -84,11 +82,13 @@ export const LineChart = () => {
           display: false,
         },
         ticks: {
-          /* font: {
-            size: 10,
-          }, */
           color: "white",
           callback: function (_: any, index: any) {
+            /* return apiData.isSuccess && !apiData.isError
+              ? data.datasets[0].data[index] +
+                  " " +
+                  apiData?.data?.list[array[index]].weather[0].description
+              : "loading"; */
             return (
               data.datasets[0].data[index] +
               " " +
@@ -102,10 +102,13 @@ export const LineChart = () => {
         position: "top",
         ticks: {
           /* font: {
-            size: 16,
+            weight: "bold",
           }, */
           color: "white",
           callback: function (_: any, index: any) {
+            /* return apiData.isSuccess && !apiData.isError
+              ? labels[index]
+              : "error"; */
             return labels[index];
           },
           padding: 10,
