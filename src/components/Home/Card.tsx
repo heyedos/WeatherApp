@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { weatherApp } from "../../types";
 
 export const Card = () => {
   const navigate = useNavigate();
-  const { data, isLoading, isError }: any = useQuery({
+  const { data, isLoading, isError } = useQuery<weatherApp>({
     queryKey: ["forecast"],
     enabled: false,
     refetchOnWindowFocus: false,
   });
+  console.log(data);
 
   if (isLoading) return <div>Loading...</div>;
   return (

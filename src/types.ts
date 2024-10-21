@@ -1,42 +1,64 @@
-interface LocationTypes {
-  name: string;
+interface coordProps {
+  lat: number;
+  lon: number;
+}
+interface cityProps {
+  coord: coordProps;
   country: string;
-  lat: string;
-  lon: string;
-  localtime: string;
+  id: number;
+  name: string;
+  population: number;
+  sunrise: number;
+  sunset: number;
 }
-interface conditionType {
+interface cloudProps {
+  all: number;
+}
+interface mainProps {
+  feels_like: number;
+  grnd_level: number;
+  humidity: number;
+  pressure: number;
+  sea_level: number;
+  temp: number;
+  temp_kf: number;
+  temp_max: number;
+  temp_min: number;
+}
+interface weatherProps {
+  description: string;
   icon: string;
-  text: string;
+  id: number;
+  main: string;
 }
-interface CurrentTypes {
-  condition: conditionType;
-  cloud: string;
-  wind_mph: string;
-  temp_c: string;
-  temp_f: string;
+interface windProps {
+  deg: number;
+  gust: number;
+  speed: number;
 }
-interface conditionTypes {
-  text: string;
-  icon: string;
+interface listProps {
+  clouds: cloudProps;
+  dt: number;
+  dt_txt: string;
+  main: mainProps;
+  weather: weatherProps[];
+  wind: windProps;
 }
-interface dayTypes {
-  avgtemp_c: string;
-  condition: conditionTypes;
-}
-export interface ForecastdayTypes {
-  date: string;
-  day: dayTypes;
-}
-interface ForecastTypes {
-  forecastday: ForecastdayTypes[];
+export interface weatherApp {
+  city: cityProps;
+  list: listProps[];
 }
 
-export interface WeatherTypes {
-  location: LocationTypes;
-  current: CurrentTypes;
-  forecast: ForecastTypes;
+interface LatLonProp {
+  latitude: number;
+  longitude: number;
 }
-export interface weatherProp {
-  weather?: ForecastdayTypes | null;
+export interface positionProps {
+  coords: LatLonProp;
+}
+export interface optionsProps {
+  weekday: "long" | "short" | "narrow";
+  year: "numeric" | "2-digit";
+  month: "long" | "short" | "narrow" | "numeric" | "2-digit";
+  day: "numeric" | "2-digit";
 }

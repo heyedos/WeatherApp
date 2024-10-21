@@ -1,25 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { optionsProps, positionProps, weatherApp } from "../../../types";
 
 export const Left = () => {
-  const options: any = {
+  const options: optionsProps = {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   };
-  const [lon, setLon] = useState<string>();
-  const [lat, setLat] = useState<string>();
+  const [lon, setLon] = useState<number>();
+  const [lat, setLat] = useState<number>();
   const handleLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, errorr);
     } else {
       console.log("Geolocation is not supported");
-      setLat("41.015137");
-      setLon("28.979530");
+      setLat(41.015137);
+      setLon(28.97953);
     }
   };
-  const success = (position: any) => {
+  const success = (position: positionProps) => {
     setLat(position.coords.latitude);
     setLon(position.coords.longitude);
     console.log(
@@ -28,8 +29,8 @@ export const Left = () => {
   };
   function errorr() {
     console.log("Unable to retrieve your location");
-    setLat("41.015137");
-    setLon("28.979530");
+    setLat(41.015137);
+    setLon(28.97953);
   }
   useEffect(() => {
     handleLocation();
@@ -45,7 +46,7 @@ export const Left = () => {
     }
     return res;
   };
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery<weatherApp>({
     queryKey: ["forecast"],
     queryFn: () => fetchWeatherDays(),
     enabled: !!handleLocation && !!lat && !!lon,

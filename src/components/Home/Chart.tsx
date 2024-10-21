@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import { weatherApp } from "../../types";
 export const Chart = () => {
-  const { data, isLoading, isError }: any = useQuery({
+  const { data, isLoading, isError } = useQuery<weatherApp>({
     queryKey: ["forecast"],
     enabled: false,
     refetchOnWindowFocus: false,

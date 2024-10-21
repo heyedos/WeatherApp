@@ -9,7 +9,9 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartOptions,
 } from "chart.js";
+import { weatherApp } from "../../types";
 
 ChartJS.register(
   CategoryScale,
@@ -33,24 +35,28 @@ export const LineChart = () => {
     "Saturday",
   ];
 
-  const apiData: any = useQuery({
+  const apiData = useQuery<weatherApp>({
     queryKey: ["forecast"],
     enabled: false,
     refetchOnWindowFocus: false,
   });
   if (apiData.isLoading) return <div>Loading...</div>;
-  const labels = array.map((key): string => {
-    return days[new Date(apiData.data?.list[key].dt_txt.slice(0, 10)).getDay()];
+  const labels = array.map((key: number): string => {
+    const dateString = apiData.data?.list[key]?.dt_txt;
+    return dateString
+      ? days[new Date(dateString.slice(0, 10)).getDay()]
+      : "Unknown Day";
   });
 
-  const data: any = {
+  const data = {
     labels: labels,
     datasets: [
       {
         label: "Temperature Data",
-        data: array.map((key) =>
-          (apiData.data?.list[key].main.temp - 273.15).toPrecision(3)
-        ),
+        data: array.map((key: number) => {
+          const dateString = apiData.data?.list[key]?.main.temp;
+          return dateString ? (dateString - 273.15).toPrecision(3) : "unknown";
+        }),
         borderColor: "white",
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         pointRadius: 0,
@@ -59,7 +65,7 @@ export const LineChart = () => {
     ],
   };
 
-  const options: any = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -84,7 +90,7 @@ export const LineChart = () => {
         },
         ticks: {
           color: "white",
-          callback: function (_: any, index: any) {
+          callback: function (_: string | number, index: number): string {
             return apiData.data
               ? data.datasets[0].data[index] +
                   " " +
@@ -100,7 +106,7 @@ export const LineChart = () => {
         position: "top",
         ticks: {
           color: "white",
-          callback: function (_: any, index: any) {
+          callback: function (_: string | number, index: number) {
             return apiData.data
               ? labels[index]
               : apiData.isError
