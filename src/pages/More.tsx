@@ -3,93 +3,122 @@ import { useParams } from "react-router-dom";
 import { weatherApp } from "../types";
 export const More = () => {
   const { city } = useParams<{ city: string }>();
-  const { data, isLoading } = useQuery<weatherApp>({
+  const { data, isLoading, isError, isSuccess } = useQuery<weatherApp>({
     queryKey: ["forecast"],
     enabled: false,
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
   });
+  console.log(isError + " " + isSuccess);
+
   if (isLoading) return <div>Loading...</div>;
   return (
-    <main className="w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 text-center">
-      <div className=" weather  flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md bg-slate-800 px-4 ">
+    <main className="w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 ">
+      <div className=" weather  flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md bg-slate-800 px-4 text-center">
         <h1 className="text-4xl max-sm:text-xl">
-          {city?.toUpperCase()} / {data?.city.country}
+          {isSuccess && !isError
+            ? city?.toUpperCase() + "/" + data?.city.country
+            : "error"}
         </h1>
         <div className="flex items-center gap-4 max-md:flex-col">
-          <p className="text-2xl">{"LAT: " + data?.city.coord.lat}</p>
-          <p className="text-2xl">{"LON: " + data?.city.coord.lon}</p>
+          <p className="text-2xl">
+            {"LAT: " + (!isError && isSuccess ? data?.city.coord.lat : "error")}
+          </p>
+          <p className="text-2xl">
+            {"LON: " + (!isError && isSuccess ? data?.city.coord.lon : "error")}
+          </p>
         </div>
-        <p className="text-2xl">{"Population: " + data?.city.population}</p>
+        <p className="text-2xl">
+          {"Population: " +
+            (isSuccess && !isError ? data?.city.population : "error")}
+        </p>
         <div className="flex items-center gap-4 text-2xl max-md:flex-col">
           <p>
             {"Sunrise: " +
               (data?.city.sunrise
                 ? new Date(data?.city.sunrise * 1000).toLocaleTimeString()
-                : "null")}
+                : "error")}
           </p>
           <p>
             {"Sunset: " +
               (data?.city.sunrise
                 ? new Date(data?.city.sunset * 1000).toLocaleTimeString()
-                : "null")}
+                : "error")}
           </p>
         </div>
         <p className="text-2xl">
-          {"Current Time: " + new Date().toLocaleTimeString()}
+          {"Current Time: " +
+            (isSuccess && !isError ? new Date().toLocaleTimeString() : "error")}
         </p>
         <div className="flex items-center gap-8 max-md:flex-col">
           <h1 className="text-3xl">
             {"Temp: " +
               (data?.list[0].main.temp
                 ? (data?.list[0].main.temp - 273.15).toPrecision(2) + "°"
-                : "unvalid")}
+                : "error")}
           </h1>
           <div className="weatherCond flex flex-col gap-2">
             <p className="text-3xl text-gray-600">
-              {data?.list[0].weather[0].main}
+              {isSuccess && !isError ? data?.list[0].weather[0].main : "error"}
             </p>
             <p className="text-3xl text-gray-600">
-              {data?.list[0].weather[0].description}
+              {isSuccess && !isError
+                ? data?.list[0].weather[0].description
+                : "error"}
             </p>
           </div>
-          <img
-            src={
-              "http://openweathermap.org/img/w/" +
-              data?.list[0].weather[0].icon +
-              ".png"
-            }
-            alt=""
-            className="w-14"
-          />
+          {isSuccess && !isError ? (
+            <img
+              src={
+                "http://openweathermap.org/img/w/" +
+                data?.list[0].weather[0].icon +
+                ".png"
+              }
+              alt=""
+              className="w-14"
+            />
+          ) : (
+            <div className="w-14">error</div>
+          )}
         </div>
         <div className="flex items-center gap-10 max-md:flex-col text-xl">
-          <p>{"Cloud: " + data?.list[0].clouds.all + "%"}</p>
+          <p>
+            {"Cloud: " +
+              (isSuccess && !isError
+                ? data?.list[0].clouds.all + "%"
+                : "error")}
+          </p>
           <div className="flex flex-col items-center">
             <p>Wind</p>
             <div className="flex items-center gap-4">
-              <p>{"degree: " + data?.list[0].wind.deg}</p>
-              <p>{"speed: " + data?.list[0].wind.speed}</p>
+              <p>
+                {"degree: " +
+                  (isSuccess && !isError ? data?.list[0].wind.deg : "error")}
+              </p>
+              <p>
+                {"speed: " +
+                  (isSuccess && !isError ? data?.list[0].wind.speed : "error")}
+              </p>
             </div>
           </div>
           <p>
             {"Feels like: " +
               (data?.list[0].main.feels_like
                 ? (data?.list[0].main.feels_like - 273.15).toPrecision(2) + "°"
-                : "unvalid temp")}
+                : "error")}
           </p>
           <div className="flex flex-col">
             <p>
               {"Max Temp: " +
                 (data?.list[0].main.temp_max
                   ? (data?.list[0].main.temp_max - 273.15).toPrecision(2) + "°"
-                  : "unvalid temp")}
+                  : "error")}
             </p>
             <p>
               {"Min Temp: " +
                 (data?.list[0].main.temp_min
                   ? (data?.list[0].main.temp_min - 273.15).toPrecision(2) + "°"
-                  : "unvalid temp")}
+                  : "error")}
             </p>
           </div>
         </div>
