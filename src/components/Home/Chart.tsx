@@ -21,7 +21,7 @@ export const Chart = () => {
       </div>
     );
   return (
-    <div className="w-full flex items-center justify-between  px-6 pt-6">
+    <div className="w-full flex items-center justify-between px-6">
       {array.map((key) => (
         <div className="pl-6 pr-8">
           <img

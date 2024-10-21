@@ -10,7 +10,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Chart } from "./Chart";
 
 ChartJS.register(
   CategoryScale,
@@ -63,6 +62,7 @@ export const LineChart = () => {
 
   const options: any = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -72,11 +72,9 @@ export const LineChart = () => {
       },
     },
     elements: {
-      point: {
-        radius: 5,
-      },
       line: {
         tension: 0.5,
+        borderWidth: 1.5,
       },
     },
     scales: {
@@ -118,6 +116,9 @@ export const LineChart = () => {
         },
       },
       y: {
+        ticks: {
+          stepSize: 0.1,
+        },
         display: false,
         grid: {
           display: false,
@@ -127,9 +128,8 @@ export const LineChart = () => {
   };
 
   return (
-    <div className="w-full  pt-4">
-      <Line data={data} options={options} height={15} width={"100%"} />
-      <Chart />
+    <div className="relative w-full h-52">
+      <Line data={data} options={options} />
     </div>
   );
 };
