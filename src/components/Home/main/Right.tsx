@@ -1,6 +1,6 @@
 export const Right = () => {
   return (
-    <div className="right bars w-4/12 flex flex-col gap-12 items-end max-xl:w-full">
+    <div className="right bars w-4/12 flex flex-col gap-12 items-end max-xl:w-full max-xl:items-center">
       <div className="desc text-base text-white">
         <p>
           With real time data and advanced technology, we provide reliable
@@ -15,7 +15,7 @@ export const Right = () => {
             <p>{">"}</p>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-2 max-md:flex-col max-md:gap-4">
           <div className="recent_card border border-white p-5 rounded-3xl bg-gray-700 w-full">
             <div className="flex justify-between items-center">
               <img

@@ -38,7 +38,7 @@ export const Main = () => {
 
   return (
     <div>
-      <div className="search w-full flex items-center justify-end gap-8 pr-8">
+      <div className="search w-full flex items-center justify-end gap-8 pr-8 max-md:pb-8">
         <div className="text-3xl text-red-600">
           {error?.message === "Nothing to geocode"
             ? "Input can't be empty"
@@ -83,7 +83,7 @@ export const Main = () => {
           <p className="text-white text-xl">Download App</p>
         </div>
       </div>
-      <div className="container flex items-center px-6 max-xl:flex-col max-xl:gap-8">
+      <div className="container flex items-center px-6 max-xl:flex-col max-xl:gap-8 max-md:pb-8">
         <Left />
         <Right />
       </div>

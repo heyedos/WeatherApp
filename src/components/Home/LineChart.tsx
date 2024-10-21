@@ -84,9 +84,9 @@ export const LineChart = () => {
           display: false,
         },
         ticks: {
-          font: {
-            size: 16,
-          },
+          /* font: {
+            size: 10,
+          }, */
           color: "white",
           callback: function (_: any, index: any) {
             return (
@@ -101,9 +101,9 @@ export const LineChart = () => {
       x2: {
         position: "top",
         ticks: {
-          font: {
+          /* font: {
             size: 16,
-          },
+          }, */
           color: "white",
           callback: function (_: any, index: any) {
             return labels[index];
