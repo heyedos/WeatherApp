@@ -3,34 +3,30 @@ import { useParams } from "react-router-dom";
 import { weatherApp } from "../types";
 export const More = () => {
   const { city } = useParams<{ city: string }>();
-  const { data, isLoading, isError, isSuccess } = useQuery<weatherApp>({
+  const { data, isLoading } = useQuery<weatherApp>({
     queryKey: ["forecast"],
     enabled: false,
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
   });
-  console.log(isError + " " + isSuccess);
 
   if (isLoading) return <div>Loading...</div>;
   return (
     <main className="w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 ">
       <div className=" weather  flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md bg-slate-800 px-4 text-center">
         <h1 className="text-4xl max-sm:text-xl">
-          {isSuccess && !isError
-            ? city?.toUpperCase() + "/" + data?.city.country
-            : "error"}
+          {city?.toUpperCase() + "/" + data?.city.country}
         </h1>
         <div className="flex items-center gap-4 max-md:flex-col">
           <p className="text-2xl">
-            {"LAT: " + (!isError && isSuccess ? data?.city.coord.lat : "error")}
+            {"LAT: " + (data ? data?.city.coord.lat : "error")}
           </p>
           <p className="text-2xl">
-            {"LON: " + (!isError && isSuccess ? data?.city.coord.lon : "error")}
+            {"LON: " + (data ? data?.city.coord.lon : "error")}
           </p>
         </div>
         <p className="text-2xl">
-          {"Population: " +
-            (isSuccess && !isError ? data?.city.population : "error")}
+          {"Population: " + (data ? data?.city.population : "error")}
         </p>
         <div className="flex items-center gap-4 text-2xl max-md:flex-col">
           <p>
@@ -48,7 +44,7 @@ export const More = () => {
         </div>
         <p className="text-2xl">
           {"Current Time: " +
-            (isSuccess && !isError ? new Date().toLocaleTimeString() : "error")}
+            (data ? new Date().toLocaleTimeString() : "error")}
         </p>
         <div className="flex items-center gap-8 max-md:flex-col">
           <h1 className="text-3xl">
@@ -59,15 +55,13 @@ export const More = () => {
           </h1>
           <div className="weatherCond flex flex-col gap-2">
             <p className="text-3xl text-gray-600">
-              {isSuccess && !isError ? data?.list[0].weather[0].main : "error"}
+              {data ? data?.list[0].weather[0].main : "error"}
             </p>
             <p className="text-3xl text-gray-600">
-              {isSuccess && !isError
-                ? data?.list[0].weather[0].description
-                : "error"}
+              {data ? data?.list[0].weather[0].description : "error"}
             </p>
           </div>
-          {isSuccess && !isError ? (
+          {data ? (
             <img
               src={
                 "http://openweathermap.org/img/w/" +
@@ -82,23 +76,12 @@ export const More = () => {
           )}
         </div>
         <div className="flex items-center gap-10 max-md:flex-col text-xl">
-          <p>
-            {"Cloud: " +
-              (isSuccess && !isError
-                ? data?.list[0].clouds.all + "%"
-                : "error")}
-          </p>
+          <p>{"Cloud: " + (data ? data?.list[0].clouds.all + "%" : "error")}</p>
           <div className="flex flex-col items-center">
             <p>Wind</p>
             <div className="flex items-center gap-4">
-              <p>
-                {"degree: " +
-                  (isSuccess && !isError ? data?.list[0].wind.deg : "error")}
-              </p>
-              <p>
-                {"speed: " +
-                  (isSuccess && !isError ? data?.list[0].wind.speed : "error")}
-              </p>
+              <p>{"degree: " + (data ? data?.list[0].wind.deg : "error")}</p>
+              <p>{"speed: " + (data ? data?.list[0].wind.speed : "error")}</p>
             </div>
           </div>
           <p>

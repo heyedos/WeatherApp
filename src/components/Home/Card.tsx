@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { weatherApp } from "../../types";
+import { keepPreviousData } from "@tanstack/react-query";
 
 export const Card = () => {
   const navigate = useNavigate();
@@ -8,8 +9,8 @@ export const Card = () => {
     queryKey: ["forecast"],
     enabled: false,
     refetchOnWindowFocus: false,
+    placeholderData: keepPreviousData,
   });
-  console.log(data);
 
   if (isLoading) return <div>Loading...</div>;
   return (
