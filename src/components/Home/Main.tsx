@@ -31,18 +31,17 @@ export const Main = () => {
   if (isLoading) return <div>Loading...</div>;
   return (
     <div>
-      <div className="search w-full flex items-center justify-end gap-8 pr-8 max-md:pb-8">
-        <div className="text-3xl text-red-600">
+      <div className="search w-full flex items-center justify-end gap-8 pr-8 max-md:pb-8 max-sm:flex-col max-sm:pr-0">
+        <div className="text-3xl text-red-600 max-sm:order-2 max-sm:text-2xl max-sm:w-full text-center ">
           {error?.message === "Nothing to geocode"
             ? "Input can't be empty"
             : error?.message}
         </div>
-
         <div
           className={cn(
-            "bg-gray-600 rounded-full p-4 relative w-1/2 transition-all duration-500 hover:transition-[50%] ease-linear ",
-            { " w-4 ": !isClicked },
-            { "  hover:w-1/2 ": isHovered }
+            "bg-gray-600 rounded-full p-4 relative w-1/2 transition-all duration-500 hover:transition-[50%] ease-linear max-sm:order-1 max-md:w-11/12",
+            { " w-4 max-sm:w-4 ": !isClicked },
+            { "  hover:w-1/2 max-md:hover:w-11/12 ": isHovered }
           )}
           onMouseEnter={() => {
             setIsHovered(true);
@@ -85,7 +84,7 @@ export const Main = () => {
           </form>
         </div>
 
-        <div className="bg-gray-700 px-4 py-1 rounded-2xl border-gray-300 border border-b-0 cursor-pointer">
+        <div className="bg-gray-700 px-4 py-1 rounded-2xl border-gray-300 border border-b-0 cursor-pointer max-sm:order-3">
           <p className="text-white text-xl">Download App</p>
         </div>
       </div>
