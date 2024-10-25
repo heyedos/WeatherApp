@@ -38,10 +38,10 @@ export const Right = () => {
         <div className="flex items-center justify-between gap-2 w-full max-md:flex-col max-md:gap-4">
           {array.map((key, index: number) => (
             <div
-              className="recent_card border border-white p-5 rounded-3xl bg-gray-700 w-full h-44 "
+              className="recent_card border border-white rounded-3xl bg-gray-700 w-full h-40 flex items-start flex-col justify-center p-5"
               key={index}
             >
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center w-full">
                 {key ? (
                   <img
                     src={
@@ -50,10 +50,10 @@ export const Right = () => {
                       ".png"
                     }
                     alt=""
-                    className="w-16"
+                    className="w-12"
                   />
                 ) : (
-                  <div className="text-white text-3xl w-16">null</div>
+                  <div className="text-white text-3xl w-12">null</div>
                 )}
                 <p className="text-3xl text-white">
                   {key
