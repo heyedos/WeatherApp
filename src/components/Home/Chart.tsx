@@ -14,7 +14,7 @@ export const Chart = () => {
       </div>
     );
   return (
-    <div className="w-full flex items-center justify-between pl-2">
+    <div className="w-full flex items-center justify-between pl-2 h-1/3">
       {array.map((key, index: number) => (
         <div className="pl-2 pr-3 max-md:px-0" key={index}>
           {data ? (
@@ -25,7 +25,7 @@ export const Chart = () => {
                 ".png"
               }
               alt=""
-              className="w-16"
+              className="w-full"
             />
           ) : isError ? (
             "error"

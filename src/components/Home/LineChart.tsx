@@ -88,6 +88,9 @@ export const LineChart = () => {
         grid: {
           display: false,
         },
+        border: {
+          display: false,
+        },
         ticks: {
           color: "white",
           callback: function (_: string | number, index: number): string {
@@ -103,6 +106,9 @@ export const LineChart = () => {
         },
       },
       x2: {
+        border: {
+          display: false,
+        },
         position: "top",
         ticks: {
           color: "white",
@@ -133,7 +139,7 @@ export const LineChart = () => {
   };
 
   return (
-    <div className="relative w-full h-52">
+    <div className="relative w-full min-h-52 h-full">
       <Line data={data} options={options} />
     </div>
   );
