@@ -23,9 +23,6 @@ export const Left = () => {
   const success = (position: positionProps) => {
     setLat(position.coords.latitude);
     setLon(position.coords.longitude);
-    console.log(
-      `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`
-    );
   };
   function errorr() {
     console.log("Unable to retrieve your location");
