@@ -36,8 +36,11 @@ export const Right = () => {
           </div>
         </div>
         <div className="flex items-center justify-between gap-2 max-md:flex-col max-md:gap-4">
-          {array.map((key) => (
-            <div className="recent_card border border-white p-5 rounded-3xl bg-gray-700 w-full">
+          {array.map((key, index: number) => (
+            <div
+              className="recent_card border border-white p-5 rounded-3xl bg-gray-700 w-full"
+              key={index}
+            >
               <div className="flex justify-between items-center">
                 {key ? (
                   <img

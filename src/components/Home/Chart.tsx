@@ -6,7 +6,7 @@ export const Chart = () => {
     enabled: false,
     refetchOnWindowFocus: false,
   });
-  const array = [6, 14, 22, 30, 38];
+  const array: number[] = [6, 14, 22, 30, 38];
   if (isLoading)
     return (
       <div className="w-full h-full px-6 pt-6 text-5xl text-white">
@@ -15,8 +15,8 @@ export const Chart = () => {
     );
   return (
     <div className="w-full flex items-center justify-between pl-2">
-      {array.map((key) => (
-        <div className="pl-2 pr-3 max-md:px-0">
+      {array.map((key, index: number) => (
+        <div className="pl-2 pr-3 max-md:px-0" key={index}>
           {data ? (
             <img
               src={
