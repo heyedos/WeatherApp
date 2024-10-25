@@ -12,6 +12,7 @@ export const Right = () => {
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
   });
+
   useEffect(() => {
     setPreviousData(data);
     setPreviousDataTwo(previosData);
@@ -20,25 +21,24 @@ export const Right = () => {
 
   const array = [previosDataTwo, previosDataThree];
   return (
-    <div className="right bars w-4/12 flex flex-col gap-12 items-end max-xl:w-full max-xl:items-center">
+    <div className="right bars w-5/12 flex flex-col gap-4 items-end max-xl:w-full max-xl:items-center">
       <div className="desc text-base text-white">
         <p>
           With real-time data and advanced technology, we provide reliable
           forecasts for any location around the world.
         </p>
       </div>
-      <div className="recently w-full flex flex-col gap-2">
-        <div className="recentTop flex justify-between">
+      <div className="recently w-full flex flex-col gap-2 items-center">
+        <div className="flex justify-between text-sm w-full px-2">
           <p className="text-white">Recently Searched</p>
-          <div className="flex items-center text-white">
-            <p>See All</p>
-            <p>{">"}</p>
+          <div className="text-white">
+            <p>See All {">"}</p>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-2 max-md:flex-col max-md:gap-4">
+        <div className="flex items-center justify-between gap-2 w-full max-md:flex-col max-md:gap-4">
           {array.map((key, index: number) => (
             <div
-              className="recent_card border border-white p-5 rounded-3xl bg-gray-700 w-full"
+              className="recent_card border border-white p-5 rounded-3xl bg-gray-700 w-full h-44 "
               key={index}
             >
               <div className="flex justify-between items-center">
@@ -53,15 +53,15 @@ export const Right = () => {
                     className="w-16"
                   />
                 ) : (
-                  <div className="text-white text-3xl">null</div>
+                  <div className="text-white text-3xl w-16">null</div>
                 )}
                 <p className="text-3xl text-white">
                   {key
-                    ? (key?.list[0].main.temp - 273.14).toPrecision(3)
+                    ? (key?.list[0].main.temp - 273.14).toPrecision(3) + "°"
                     : "null"}
                 </p>
               </div>
-              <div className="flex flex-col pt-2">
+              <div className="flex flex-col">
                 <p className="text-white text-lg">
                   {key ? key?.city.name + " / " + key?.city.country : "null"}
                 </p>

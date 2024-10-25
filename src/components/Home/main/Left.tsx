@@ -29,9 +29,6 @@ export const Left = () => {
     setLat(41.015137);
     setLon(28.97953);
   }
-  useEffect(() => {
-    handleLocation();
-  }, []);
 
   const fetchWeatherDays = async () => {
     const response = await fetch(
@@ -49,7 +46,11 @@ export const Left = () => {
     enabled: !!handleLocation && !!lat && !!lon,
     refetchOnWindowFocus: false,
   });
-
+  if (!data) {
+    useEffect(() => {
+      handleLocation();
+    }, []);
+  }
   if (isLoading) return <div>Loading...</div>;
   return (
     <div className="left bars w-9/12 flex flex-col gap-12 items-start max-xl:w-full">
