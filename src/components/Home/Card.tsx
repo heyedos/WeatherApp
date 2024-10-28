@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { weatherApp } from "../../types";
 import { keepPreviousData } from "@tanstack/react-query";
 
