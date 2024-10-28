@@ -9,7 +9,6 @@ export const More = () => {
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
   });
-  console.log(data);
 
   if (isLoading) return <div>Loading...</div>;
   return (
