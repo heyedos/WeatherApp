@@ -12,8 +12,14 @@ export const Home = () => {
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
   });
-
-  console.log(data?.list[0].weather[0].main);
+  /*   const colorScheme = {
+    SNOW:{
+      text:"text-black "
+      background:"bg-gray-200"
+    }
+  }
+colorScheme["SNOW"].text;
+  console.log(data?.list[0].weather[0].main); */
   if (isLoading) return <div>Loading...</div>;
   return (
     <main

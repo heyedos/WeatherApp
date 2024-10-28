@@ -37,9 +37,7 @@ export const Card = () => {
         <div
           className="text-black text-center cursor-pointer"
           onClick={() => {
-            if (data?.city.name.trim()) {
-              navigate(`/${data?.city.name.toLowerCase()}`);
-            }
+            navigate(`/${data?.city.name.toLowerCase()}`);
           }}
         >
           <p>See More details {">"}</p>
