@@ -22,7 +22,7 @@ export const Right = () => {
   const array = [previosDataTwo, previosDataThree];
   return (
     <div className="right bars w-5/12 flex flex-col gap-4 items-end max-xl:w-full max-xl:items-center">
-      <div className="desc text-base text-white">
+      <div className="desc text-base text-black">
         <p>
           With real-time data and advanced technology, we provide reliable
           forecasts for any location around the world.
@@ -30,15 +30,15 @@ export const Right = () => {
       </div>
       <div className="recently w-full flex flex-col gap-2 items-center">
         <div className="flex justify-between text-sm w-full px-2">
-          <p className="text-white">Recently Searched</p>
-          <div className="text-white">
+          <p className="text-black">Recently Searched</p>
+          <div className="text-black">
             <p>See All {">"}</p>
           </div>
         </div>
         <div className="flex items-center justify-between gap-2 w-full max-md:flex-col max-md:gap-4">
           {array.map((key, index: number) => (
             <div
-              className="recent_card border border-white rounded-3xl bg-gray-700 w-full h-40 flex items-start flex-col justify-center p-5"
+              className="recent_card border border-white rounded-3xl backdrop-blur-3xl  w-full h-40 flex items-start flex-col justify-center p-5"
               key={index}
             >
               <div className="flex justify-between items-center w-full">
@@ -53,9 +53,9 @@ export const Right = () => {
                     className="w-12"
                   />
                 ) : (
-                  <div className="text-white text-3xl w-12">null</div>
+                  <div className="text-black text-3xl w-12">null</div>
                 )}
-                <p className="text-3xl text-white">
+                <p className="text-3xl text-black">
                   {key
                     ? (key?.list[0].main.temp - 273.14).toPrecision(3) + "°"
                     : "null"}

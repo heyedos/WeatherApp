@@ -1,14 +1,18 @@
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { weatherApp } from "../types";
+import { fetchWeather } from "../api/getWeather";
 export const More = () => {
   const { city } = useParams<{ city: string }>();
   const { data, isLoading } = useQuery<weatherApp>({
     queryKey: ["forecast"],
-    enabled: false,
-    placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
+    queryFn: () => fetchWeather(city as string),
+    enabled: !!city,
+    // staleTime: Infinity,
   });
+  console.log(city);
+  console.log(data);
 
   if (isLoading) return <div>Loading...</div>;
   return (

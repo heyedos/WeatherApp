@@ -56,7 +56,7 @@ export const Left = () => {
     <div className="left bars w-9/12 flex flex-col gap-12 items-start max-xl:w-full">
       <div className="location w-full flex items-center justify-start gap-4">
         <img src="../../assets/images/location.svg" alt="" className="w-6" />
-        <p className="text-2xl text-white">
+        <p className="text-2xl text-black">
           {data
             ? data?.city.name + " " + data?.city.country
             : isError
@@ -76,7 +76,7 @@ export const Left = () => {
         </p>
       </div>
       <div className="degree flex items-center gap-4">
-        <h1 className="text-7xl text-white">
+        <h1 className="text-7xl text-black">
           {data
             ? (data?.list[0].main.temp - 273.15).toPrecision(2) + "°"
             : isError
@@ -84,9 +84,9 @@ export const Left = () => {
             : "loading"}
         </h1>
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-6 bg-slate-700 px-5 py-1 rounded-full">
+          <div className="flex items-center gap-6 backdrop-blur-3xl px-5 py-1 rounded-full">
             <p className="text-gray-500">H</p>
-            <p className="text-white">
+            <p className="text-black">
               {data
                 ? (data?.list[0].main.temp_max - 273.15).toPrecision(2) + "°"
                 : isError
@@ -94,9 +94,9 @@ export const Left = () => {
                 : "loading"}
             </p>
           </div>
-          <div className="flex items-center gap-6 bg-slate-700 px-5 py-1 rounded-full">
+          <div className="flex items-center gap-6 backdrop-blur-3xl px-5 py-1 rounded-full">
             <p className="text-gray-500">L</p>
-            <p className="text-white">
+            <p className="text-black">
               {data
                 ? (data?.list[0].main.temp_min - 273.15).toPrecision(2) + "°"
                 : isError
@@ -106,11 +106,11 @@ export const Left = () => {
           </div>
         </div>
       </div>
-      <div className="weatherCond flex flex-col gap-2">
-        <p className="text-6xl text-gray-600">
+      <div className="flex flex-col gap-2 text-6xl text-gray-800">
+        <p>
           {data ? data?.list[0].weather[0].main : isError ? "error" : "loading"}
         </p>
-        <p className="text-6xl text-gray-600">
+        <p>
           {data
             ? data?.list[0].weather[0].description
             : isError
