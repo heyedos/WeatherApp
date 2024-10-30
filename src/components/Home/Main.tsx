@@ -10,7 +10,7 @@ export const Main = () => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
 
-  const { refetch, error, isLoading } = useQuery({
+  const { refetch, error } = useQuery({
     queryKey: ["forecast"],
     queryFn: () => fetchWeather(inputValue),
     enabled: false,
@@ -19,7 +19,7 @@ export const Main = () => {
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
   });
-  if (isLoading) return <div>Loading...</div>;
+
   return (
     <div>
       <div className="search w-full flex items-center justify-end gap-8 pr-8 max-md:pb-8 max-sm:flex-col max-sm:pr-0 ">
@@ -50,9 +50,11 @@ export const Main = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              refetch().then(() => {
-                setInputValue("");
-              });
+              if (inputValue.length !== 0) {
+                refetch().then(() => {
+                  setInputValue("");
+                });
+              }
             }}
           >
             <button

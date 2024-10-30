@@ -40,7 +40,13 @@ export const LineChart = () => {
     enabled: false,
     refetchOnWindowFocus: false,
   });
-  if (apiData.isLoading) return <div>Loading...</div>;
+  /*  if (apiData.isLoading)
+    return (
+      <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
+        <CircularProgress />
+      </div>
+    ); */
+
   const labels = array.map((key: number): string => {
     const dateString = apiData.data?.list[key]?.dt_txt;
     return dateString
@@ -137,10 +143,10 @@ export const LineChart = () => {
       },
     },
   };
-
-  return (
-    <div className="relative w-full min-h-52 h-full">
-      <Line data={data} options={options} />
-    </div>
-  );
+  if (apiData.isSuccess)
+    return (
+      <div className="relative w-full min-h-52 h-full">
+        <Line data={data} options={options} />
+      </div>
+    );
 };
