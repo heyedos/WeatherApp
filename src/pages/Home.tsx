@@ -24,11 +24,13 @@ colorScheme["SNOW"].text;
   console.log(data?.list[0].weather[0].main); 
     bg-${data?.list[0].weather[0].main}      */
 
-  return isLoading ? (
-    <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
-      <CircularProgress />
-    </div>
-  ) : (
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
+        <CircularProgress />
+      </div>
+    );
+  return (
     <main
       className={classNames(
         `w-full  min-h-screen flex py-6 pl-8 pr-1 max-md:flex-col max-md:pr-8 max-md:gap-8 max-md:items-center max-sm:px-1 bg-cover bg-slate-700  `
