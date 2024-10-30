@@ -22,13 +22,6 @@ export const Right = () => {
 
   const array = [previosDataTwo, previosDataThree];
 
-  /*  if (!isSuccess)
-    return (
-      <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
-        <CircularProgress />
-      </div>
-    ); */
-
   return (
     <div className="right bars w-5/12 flex flex-col gap-4 items-end max-xl:w-full max-xl:items-center">
       <div className="desc text-base text-black">
