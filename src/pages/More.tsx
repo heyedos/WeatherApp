@@ -32,6 +32,10 @@ export const More = () => {
               <>
                 {icon}
                 {message}
+
+                {t.type !== "loading" && (
+                  <button onClick={() => toast.dismiss(t.id)}>HomePage</button>
+                )}
               </>
             )}
           </ToastBar>

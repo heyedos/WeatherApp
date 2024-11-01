@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { optionsProps, positionProps, weatherApp } from "../../../types";
+import { optionsProps, weatherApp } from "../../../types";
+import { fetchWeatherDays } from "../../../api/fetchWeather";
 
 export const City = () => {
   const options: optionsProps = {
@@ -9,40 +10,30 @@ export const City = () => {
     month: "long",
     day: "numeric",
   };
-  const [lon, setLon] = useState<number>();
-  const [lat, setLat] = useState<number>();
+  const [lon, setLon] = useState<string>();
+  const [lat, setLat] = useState<string>();
   const handleLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, errorr);
     } else {
       console.log("Geolocation is not supported");
-      setLat(41.015137);
-      setLon(28.97953);
+      setLat("41.015137");
+      setLon("28.97953");
     }
   };
-  const success = (position: positionProps) => {
-    setLat(position.coords.latitude);
-    setLon(position.coords.longitude);
+  const success = (position: GeolocationPosition) => {
+    setLat(position.coords.latitude.toString());
+    setLon(position.coords.longitude.toString());
   };
   function errorr() {
     console.log("Unable to retrieve your location");
-    setLat(41.015137);
-    setLon(28.97953);
+    setLat("41.015137");
+    setLon("28.97953");
   }
 
-  const fetchWeatherDays = async () => {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=81f21fae0eae35404c85514685353bfe`
-    );
-    const res = await response.json();
-    if (!response.ok) {
-      throw res;
-    }
-    return res;
-  };
   const { data } = useQuery<weatherApp>({
     queryKey: ["forecast"],
-    queryFn: () => fetchWeatherDays(),
+    queryFn: () => fetchWeatherDays(lat as string, lon as string),
     enabled: !!handleLocation && !!lat && !!lon,
     refetchOnWindowFocus: false,
   });

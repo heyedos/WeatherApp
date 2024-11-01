@@ -49,13 +49,6 @@ export interface weatherApp {
   list: listProps[];
 }
 
-interface LatLonProp {
-  latitude: number;
-  longitude: number;
-}
-export interface positionProps {
-  coords: LatLonProp;
-}
 export interface optionsProps {
   weekday: "long" | "short" | "narrow";
   year: "numeric" | "2-digit";
