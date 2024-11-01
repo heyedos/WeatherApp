@@ -1,5 +1,5 @@
-import { Right } from "./main/Right";
-import { Left } from "./main/Left";
+import { Recent } from "./main/Recent";
+import { City } from "./main/City";
 import cn from "classnames";
 import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -77,8 +77,8 @@ export const Main = () => {
         </div>
       </div>
       <div className="container flex items-center px-6 max-xl:flex-col max-xl:gap-8 max-md:pb-8">
-        <Left />
-        <Right />
+        <City />
+        <Recent />
       </div>
     </div>
   );

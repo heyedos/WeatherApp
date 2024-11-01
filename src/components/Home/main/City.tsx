@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { optionsProps, positionProps, weatherApp } from "../../../types";
 
-export const Left = () => {
+export const City = () => {
   const options: optionsProps = {
     weekday: "long",
     year: "numeric",

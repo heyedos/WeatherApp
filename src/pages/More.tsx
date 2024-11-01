@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { weatherApp } from "../types";
 import { fetchWeather } from "../api/getWeather";
 import CircularProgress from "@mui/material/CircularProgress";
+import toast, { ToastBar, Toaster } from "react-hot-toast";
 export const More = () => {
   const { city } = useParams<{ city: string }>();
   const { data, isLoading } = useQuery<weatherApp>({
@@ -10,17 +11,32 @@ export const More = () => {
     refetchOnWindowFocus: false,
     queryFn: () => fetchWeather(city as string),
     enabled: !!city,
-    // staleTime: Infinity,
+    retry: false,
+    staleTime: Infinity,
   });
-
-  if (isLoading)
-    return (
-      <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
-        <CircularProgress />
-      </div>
-    );
-  return (
+  return isLoading ? (
+    <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
+      <CircularProgress />
+    </div>
+  ) : (
     <main className="w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 ">
+      <Toaster>
+        {(t) => (
+          <ToastBar
+            toast={t}
+            style={{
+              opacity: 1,
+            }}
+          >
+            {({ icon, message }) => (
+              <>
+                {icon}
+                {message}
+              </>
+            )}
+          </ToastBar>
+        )}
+      </Toaster>
       <div className=" weather  flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md bg-slate-800 px-4 text-center">
         <h1 className="text-4xl max-sm:text-xl">
           {city?.toUpperCase() + "/" + data?.city.country}

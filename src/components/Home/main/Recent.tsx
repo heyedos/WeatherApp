@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { weatherApp } from "../../../types";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-export const Right = () => {
-  const [previosData, setPreviousData] = useState<weatherApp>();
-  const [previosDataTwo, setPreviousDataTwo] = useState<weatherApp>();
-  const [previosDataThree, setPreviousDataThree] = useState<weatherApp>();
-
+export const Recent = () => {
+  const [array, setArray] = useState<weatherApp[]>([]);
+  if (array.length > 3) {
+    array.shift();
+  }
   const { data } = useQuery<weatherApp>({
     queryKey: ["forecast"],
     enabled: false,
@@ -15,12 +15,14 @@ export const Right = () => {
   });
 
   useEffect(() => {
-    setPreviousData(data);
-    setPreviousDataTwo(previosData);
-    setPreviousDataThree(previosDataTwo);
+    if (data) {
+      localStorage.setItem("recent", JSON.stringify(data));
+      setArray([
+        ...array,
+        JSON.parse(localStorage.getItem("recent") as string),
+      ]);
+    }
   }, [data]);
-
-  const array = [previosDataTwo, previosDataThree];
 
   return (
     <div className="right bars w-5/12 flex flex-col gap-4 items-end max-xl:w-full max-xl:items-center">
@@ -38,7 +40,7 @@ export const Right = () => {
           </div>
         </div>
         <div className="flex items-center justify-between gap-2 w-full max-md:flex-col max-md:gap-4">
-          {array.map((key, index: number) => (
+          {array.slice(1).map((key: any, index: number) => (
             <div
               className="recent_card border border-white rounded-3xl backdrop-blur-3xl  w-full h-40 flex items-start flex-col justify-center p-5"
               key={index}
