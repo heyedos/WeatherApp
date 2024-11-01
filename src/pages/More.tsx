@@ -19,16 +19,15 @@ export const More = () => {
 
   useEffect(() => {
     if (isError) {
-      navigate("/home");
+      navigate("/");
     }
   }, [isError]);
-  if (isLoading)
-    return (
-      <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
-        <CircularProgress />
-      </div>
-    );
-  return (
+
+  return isLoading ? (
+    <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
+      <CircularProgress />
+    </div>
+  ) : (
     <main className="w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 ">
       <Toaster>
         {(t) => (
