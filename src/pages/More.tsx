@@ -5,6 +5,7 @@ import { fetchWeather } from "../api/getWeather";
 import CircularProgress from "@mui/material/CircularProgress";
 import { ToastBar, Toaster } from "react-hot-toast";
 import { useEffect } from "react";
+import classNames from "classnames";
 export const More = () => {
   const navigate = useNavigate();
   const { city } = useParams<{ city: string }>();
@@ -28,7 +29,19 @@ export const More = () => {
       <CircularProgress />
     </div>
   ) : (
-    <main className="w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 ">
+    <main
+      className={classNames(
+        "w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 ",
+        {
+          "bg-Clouds": "Clouds" === data?.list[0].weather[0].main,
+          "bg-Rain": "Rain" === data?.list[0].weather[0].main,
+          "bg-Clear": "Clear" === data?.list[0].weather[0].main,
+          "bg-Snow": "Snow" === data?.list[0].weather[0].main,
+          "bg-Thunderstorm": "Thunderstorm" === data?.list[0].weather[0].main,
+          "bg-Mist": "Mist" === data?.list[0].weather[0].main,
+        }
+      )}
+    >
       <Toaster>
         {(t) => (
           <ToastBar
@@ -39,7 +52,7 @@ export const More = () => {
           ></ToastBar>
         )}
       </Toaster>
-      <div className=" weather  flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md bg-slate-800 px-4 text-center">
+      <div className=" backdrop-blur-xl  flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md px-4 text-center">
         <h1 className="text-4xl max-sm:text-xl">
           {city?.toUpperCase() + "/" + data?.city.country}
         </h1>

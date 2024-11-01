@@ -8,7 +8,7 @@ import classNames from "classnames";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export const Home = () => {
-  const { isLoading } = useQuery<weatherApp>({
+  const { isLoading, data } = useQuery<weatherApp>({
     queryKey: ["forecast"],
     enabled: false,
     refetchOnWindowFocus: false,
@@ -23,6 +23,7 @@ export const Home = () => {
 colorScheme["SNOW"].text;
   console.log(data?.list[0].weather[0].main); 
     bg-${data?.list[0].weather[0].main}      */
+  console.log(data?.list[0].weather[0].main);
 
   if (isLoading)
     return (
@@ -33,7 +34,15 @@ colorScheme["SNOW"].text;
   return (
     <main
       className={classNames(
-        `w-full  min-h-screen flex py-6 pl-8 pr-1 max-md:flex-col max-md:pr-8 max-md:gap-8 max-md:items-center max-sm:px-1 bg-cover bg-slate-700  `
+        "w-full  min-h-screen flex py-6 pl-8 pr-1 max-md:flex-col max-md:pr-8 max-md:gap-8 max-md:items-center max-sm:px-1 bg-cover ",
+        {
+          "bg-Clouds": "Clouds" === data?.list[0].weather[0].main,
+          "bg-Rain": "Rain" === data?.list[0].weather[0].main,
+          "bg-Clear": "Clear" === data?.list[0].weather[0].main,
+          "bg-Snow": "Snow" === data?.list[0].weather[0].main,
+          "bg-Thunderstorm": "Thunderstorm" === data?.list[0].weather[0].main,
+          "bg-Mist": "Mist" === data?.list[0].weather[0].main,
+        }
       )}
     >
       <Card />
