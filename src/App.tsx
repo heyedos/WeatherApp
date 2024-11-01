@@ -14,8 +14,8 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<Home />} />
-          <Route path="/:city" element={<More />} errorElement={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/:city" element={<More />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

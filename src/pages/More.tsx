@@ -1,12 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { weatherApp } from "../types";
 import { fetchWeather } from "../api/getWeather";
 import CircularProgress from "@mui/material/CircularProgress";
-import toast, { ToastBar, Toaster } from "react-hot-toast";
+import { ToastBar, Toaster } from "react-hot-toast";
+import { useEffect } from "react";
 export const More = () => {
+  const navigate = useNavigate();
   const { city } = useParams<{ city: string }>();
-  const { data, isLoading } = useQuery<weatherApp>({
+  const { data, isLoading, isError } = useQuery<weatherApp>({
     queryKey: ["forecast"],
     refetchOnWindowFocus: false,
     queryFn: () => fetchWeather(city as string),
@@ -14,11 +16,19 @@ export const More = () => {
     retry: false,
     staleTime: Infinity,
   });
-  return isLoading ? (
-    <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
-      <CircularProgress />
-    </div>
-  ) : (
+
+  useEffect(() => {
+    if (isError) {
+      navigate("/home");
+    }
+  }, [isError]);
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
+        <CircularProgress />
+      </div>
+    );
+  return (
     <main className="w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 ">
       <Toaster>
         {(t) => (
@@ -27,18 +37,7 @@ export const More = () => {
             style={{
               opacity: 1,
             }}
-          >
-            {({ icon, message }) => (
-              <>
-                {icon}
-                {message}
-
-                {t.type !== "loading" && (
-                  <button onClick={() => toast.dismiss(t.id)}>HomePage</button>
-                )}
-              </>
-            )}
-          </ToastBar>
+          ></ToastBar>
         )}
       </Toaster>
       <div className=" weather  flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md bg-slate-800 px-4 text-center">

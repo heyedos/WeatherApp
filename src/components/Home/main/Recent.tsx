@@ -4,9 +4,6 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 export const Recent = () => {
   const [array, setArray] = useState<weatherApp[]>([]);
-  if (array.length > 3) {
-    array.shift();
-  }
   const { data } = useQuery<weatherApp>({
     queryKey: ["forecast"],
     enabled: false,
@@ -24,6 +21,8 @@ export const Recent = () => {
     }
   }, [data]);
 
+  const recentArray = [array[array.length - 2], array[array.length - 3]];
+
   return (
     <div className="right bars w-5/12 flex flex-col gap-4 items-end max-xl:w-full max-xl:items-center">
       <div className="desc text-base text-black">
@@ -40,41 +39,46 @@ export const Recent = () => {
           </div>
         </div>
         <div className="flex items-center justify-between gap-2 w-full max-md:flex-col max-md:gap-4">
-          {array.slice(1).map((key: any, index: number) => (
-            <div
-              className="recent_card border border-white rounded-3xl backdrop-blur-3xl  w-full h-40 flex items-start flex-col justify-center p-5"
-              key={index}
-            >
-              <div className="flex justify-between items-center w-full">
-                {key ? (
-                  <img
-                    src={
-                      "http://openweathermap.org/img/w/" +
-                      key?.list[0].weather[0].icon +
-                      ".png"
-                    }
-                    alt=""
-                    className="w-12"
-                  />
-                ) : (
-                  <div className="text-black text-3xl w-12">null</div>
-                )}
-                <p className="text-3xl text-black">
-                  {key
-                    ? (key?.list[0].main.temp - 273.14).toPrecision(3) + "°"
-                    : "null"}
-                </p>
-              </div>
-              <div className="flex flex-col">
-                <p className="text-white text-lg">
-                  {key ? key?.city.name + " / " + key?.city.country : "null"}
-                </p>
-                <p className="text-gray-500 text-sm">
-                  {key ? key?.list[0].weather[0].description : "null"}
-                </p>
-              </div>
-            </div>
-          ))}
+          {recentArray.map((key: any, index: number) => {
+            if (key)
+              return (
+                <div
+                  className="recent_card border border-white rounded-3xl backdrop-blur-3xl  w-full h-40 flex items-start flex-col justify-center p-5"
+                  key={index}
+                >
+                  <div className="flex justify-between items-center w-full">
+                    {key ? (
+                      <img
+                        src={
+                          "http://openweathermap.org/img/w/" +
+                          key?.list[0].weather[0].icon +
+                          ".png"
+                        }
+                        alt=""
+                        className="w-12"
+                      />
+                    ) : (
+                      <div className="text-black text-3xl w-12">null</div>
+                    )}
+                    <p className="text-3xl text-black">
+                      {key
+                        ? (key?.list[0].main.temp - 273.14).toPrecision(3) + "°"
+                        : "null"}
+                    </p>
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="text-white text-lg">
+                      {key
+                        ? key?.city.name + " / " + key?.city.country
+                        : "null"}
+                    </p>
+                    <p className="text-gray-500 text-sm">
+                      {key ? key?.list[0].weather[0].description : "null"}
+                    </p>
+                  </div>
+                </div>
+              );
+          })}
         </div>
       </div>
     </div>
