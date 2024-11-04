@@ -1,5 +1,5 @@
 import { Line } from "react-chartjs-2";
-import { useQuery } from "@tanstack/react-query";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +11,9 @@ import {
   Legend,
   ChartOptions,
 } from "chart.js";
-import { weatherApp } from "../../types";
+
+import { useContext } from "react";
+import { dataContext } from "../../App";
 
 ChartJS.register(
   CategoryScale,
@@ -25,6 +27,7 @@ ChartJS.register(
 
 export const LineChart = () => {
   const array = [6, 14, 22, 30, 38];
+
   const days = [
     "Sunday",
     "Monday",
@@ -35,14 +38,10 @@ export const LineChart = () => {
     "Saturday",
   ];
 
-  const apiData = useQuery<weatherApp>({
-    queryKey: ["forecast"],
-    enabled: false,
-    refetchOnWindowFocus: false,
-  });
+  const { globalData } = useContext(dataContext);
 
   const labels = array.map((key: number): string => {
-    const dateString = apiData.data?.list[key]?.dt_txt;
+    const dateString = globalData?.list[key]?.dt_txt;
     return dateString
       ? days[new Date(dateString.slice(0, 10)).getDay()]
       : "Unknown Day";
@@ -54,7 +53,7 @@ export const LineChart = () => {
       {
         label: "Temperature Data",
         data: array.map((key: number) => {
-          const dateString = apiData.data?.list[key]?.main.temp;
+          const dateString = globalData?.list[key]?.main.temp;
           return dateString ? (dateString - 273.15).toPrecision(3) : "unknown";
         }),
         borderColor: "white",
@@ -94,13 +93,11 @@ export const LineChart = () => {
         ticks: {
           color: "white",
           callback: function (_: string | number, index: number): string {
-            return apiData.data
+            return globalData
               ? data.datasets[0].data[index] +
                   " " +
-                  apiData?.data?.list[array[index]].weather[0].description
-              : apiData.isError
-              ? "error"
-              : "loading";
+                  globalData?.list[array[index]].weather[0].description
+              : "error";
           },
           padding: 10,
         },
@@ -113,11 +110,7 @@ export const LineChart = () => {
         ticks: {
           color: "white",
           callback: function (_: string | number, index: number) {
-            return apiData.data
-              ? labels[index]
-              : apiData.isError
-              ? "error"
-              : "loading";
+            return globalData ? labels[index] : "error";
           },
           padding: 10,
         },

@@ -1,12 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { weatherApp } from "../../types";
+import { dataContext } from "../../App";
+import { useContext } from "react";
 
 export const Chart = () => {
-  const { data } = useQuery<weatherApp>({
-    queryKey: ["forecast"],
-    enabled: false,
-    refetchOnWindowFocus: false,
-  });
+  const { globalData } = useContext(dataContext);
   const array: number[] = [6, 14, 22, 30, 38];
 
   return (
@@ -17,7 +13,7 @@ export const Chart = () => {
             <img
               src={
                 "http://openweathermap.org/img/w/" +
-                data?.list[key].weather[0].icon +
+                globalData?.list[key].weather[0].icon +
                 ".png"
               }
               alt=""

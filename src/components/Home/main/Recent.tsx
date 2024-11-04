@@ -1,25 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { weatherApp } from "../../../types";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { dataContext } from "../../../App";
 
 export const Recent = () => {
+  const { globalData } = useContext(dataContext);
   const [array, setArray] = useState<weatherApp[]>([]);
-  const { data } = useQuery<weatherApp>({
-    queryKey: ["forecast"],
-    enabled: false,
-    refetchOnWindowFocus: false,
-    placeholderData: keepPreviousData,
-  });
 
   useEffect(() => {
-    if (data) {
-      localStorage.setItem("recent", JSON.stringify(data));
+    if (globalData) {
+      localStorage.setItem("recent", JSON.stringify(globalData));
       setArray([
         ...array,
         JSON.parse(localStorage.getItem("recent") as string),
       ]);
     }
-  }, [data]);
+  }, [globalData]);
 
   const recentArray = [array[array.length - 2], array[array.length - 3]];
 
@@ -39,7 +34,7 @@ export const Recent = () => {
           </div>
         </div>
         <div className="flex items-center justify-between gap-2 w-full max-md:flex-col max-md:gap-4">
-          {recentArray.map((key: any, index: number) => {
+          {recentArray.map((key: weatherApp, index: number) => {
             if (key)
               return (
                 <div

@@ -1,17 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { weatherApp } from "../../types";
-import { keepPreviousData } from "@tanstack/react-query";
+import { dataContext } from "../../App";
+import { useContext } from "react";
 
 export const Card = () => {
-  const { data } = useQuery<weatherApp>({
-    queryKey: ["forecast"],
-    enabled: false,
-    refetchOnWindowFocus: false,
-    placeholderData: keepPreviousData,
-  });
-
-  // const {data} = useWeather()
+  const { globalData } = useContext(dataContext);
 
   return (
     <div className="w-1/4 backdrop-blur-3xl opacity-90 py-8 flex flex-col items-center border-white border rounded-3xl gap-6 max-md:w-2/3    max-md:order-2">
@@ -34,7 +26,7 @@ export const Card = () => {
         </div>
 
         <button className="text-black text-center cursor-pointer">
-          <Link to={`/${data?.city.name.toLowerCase()}`}>
+          <Link to={`/${globalData?.city.name.toLowerCase()}`}>
             See More details {">"}
           </Link>
         </button>
@@ -71,7 +63,9 @@ export const Card = () => {
         </div>
         <div className="bg-gray-800 backdrop-blur-3xl px-6 py-2 rounded-3xl">
           <p className="text-white">
-            {data ? data?.city.name + " " + data?.city.country : " "}
+            {globalData
+              ? globalData?.city.name + " " + globalData?.city.country
+              : " "}
           </p>
         </div>
       </div>
