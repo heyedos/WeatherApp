@@ -46,17 +46,17 @@ export const Card = () => {
         </div>
         <div className="flex relative items-center w-full justify-center overflow-hidden">
           <img
-            src="../../public/assets/images/world.png"
+            src="../../assets/images/world.png"
             alt=""
             className="w-5/12 relative -left-4"
           />
           <img
-            src="../../public/assets/images/world.png"
+            src="../../assets/images/world.png"
             alt=""
             className="w-6/12 relative"
           />
           <img
-            src="../../public/assets/images/world.png"
+            src="../../assets/images/world.png"
             alt=""
             className="w-5/12 relative -right-4"
           />
