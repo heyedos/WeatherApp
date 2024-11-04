@@ -10,11 +10,41 @@ export const dataContext = createContext<any>(null);
 function App() {
   const queryClient = new QueryClient();
   const [globalData, setGlobalData] = useState<any>(null);
+  const color: string = globalData?.list[0].weather[0].main;
+  const colorScheme: any = {
+    Clouds: {
+      color: "black",
+      background: "url('../../assets/images/Clouds2.jpg')",
+    },
+    Rain: {
+      color: "red",
+      background: "url('../../assets/images/rain.jpg')",
+    },
+    Snow: {
+      color: "black",
+      background: " url('../../assets/images/snow.png') ",
+    },
+    Clear: {
+      colorv2: "white",
+      color: "black",
+      background: "url('../../assets/images/sunny1.jpg')",
+    },
+    Thunderstorm: {
+      color: "red",
+      background: "url('../../assets/images/thunderstorm.png')",
+    },
+    Mist: {
+      color: "red",
+      background: "url('../../assets/images/mist.jpeg')",
+    },
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <dataContext.Provider value={{ globalData, setGlobalData }}>
+      <dataContext.Provider
+        value={{ globalData, setGlobalData, colorScheme, color }}
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />

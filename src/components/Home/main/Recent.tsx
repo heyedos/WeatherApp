@@ -3,7 +3,7 @@ import { weatherApp } from "../../../types";
 import { dataContext } from "../../../App";
 
 export const Recent = () => {
-  const { globalData } = useContext(dataContext);
+  const { globalData, colorScheme, color } = useContext(dataContext);
   const [array, setArray] = useState<weatherApp[]>([]);
 
   useEffect(() => {
@@ -62,12 +62,18 @@ export const Recent = () => {
                     </p>
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-white text-lg">
+                    <p
+                      className="text-white text-lg"
+                      style={{ color: colorScheme[color]?.color }}
+                    >
                       {key
                         ? key?.city.name + " / " + key?.city.country
                         : "null"}
                     </p>
-                    <p className="text-gray-500 text-sm">
+                    <p
+                      className="text-gray-500 text-sm"
+                      style={{ color: colorScheme[color]?.color }}
+                    >
                       {key ? key?.list[0].weather[0].description : "null"}
                     </p>
                   </div>

@@ -38,7 +38,7 @@ export const LineChart = () => {
     "Saturday",
   ];
 
-  const { globalData } = useContext(dataContext);
+  const { globalData, colorScheme, color } = useContext(dataContext);
 
   const labels = array.map((key: number): string => {
     const dateString = globalData?.list[key]?.dt_txt;
@@ -91,7 +91,7 @@ export const LineChart = () => {
           display: false,
         },
         ticks: {
-          color: "white",
+          color: colorScheme[color]?.color,
           callback: function (_: string | number, index: number): string {
             return globalData
               ? data.datasets[0].data[index] +
@@ -108,7 +108,7 @@ export const LineChart = () => {
         },
         position: "top",
         ticks: {
-          color: "white",
+          color: colorScheme[color]?.color,
           callback: function (_: string | number, index: number) {
             return globalData ? labels[index] : "error";
           },

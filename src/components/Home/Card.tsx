@@ -3,7 +3,7 @@ import { dataContext } from "../../App";
 import { useContext } from "react";
 
 export const Card = () => {
-  const { globalData } = useContext(dataContext);
+  const { globalData, colorScheme, color } = useContext(dataContext);
 
   return (
     <div className="w-1/4 backdrop-blur-3xl opacity-90 py-8 flex flex-col items-center border-white border rounded-3xl gap-6 max-md:w-2/3    max-md:order-2">
@@ -33,7 +33,12 @@ export const Card = () => {
       </div>
       <div className="flex flex-col w-full items-center gap-4">
         <div className="flex items-center justify-between w-11/12">
-          <p className="text-gray-600">Select Area</p>
+          <p
+            className="text-gray-600"
+            style={{ color: colorScheme[color]?.color }}
+          >
+            Select Area
+          </p>
           <div className="flex items-center gap-2">
             <img
               src="../../assets/images/cursor.png"
