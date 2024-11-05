@@ -91,7 +91,8 @@ export const LineChart = () => {
           display: false,
         },
         ticks: {
-          color: colorScheme[color]?.color,
+          font: { size: 16 },
+          color: colorScheme[color]?.colorv2,
           callback: function (_: string | number, index: number): string {
             return globalData
               ? data.datasets[0].data[index] +
@@ -108,6 +109,9 @@ export const LineChart = () => {
         },
         position: "top",
         ticks: {
+          font: {
+            size: 16,
+          },
           color: colorScheme[color]?.color,
           callback: function (_: string | number, index: number) {
             return globalData ? labels[index] : "error";

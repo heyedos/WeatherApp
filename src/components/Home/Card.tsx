@@ -6,10 +6,13 @@ export const Card = () => {
   const { globalData, colorScheme, color } = useContext(dataContext);
 
   return (
-    <div className="w-1/4 backdrop-blur-3xl opacity-90 py-8 flex flex-col items-center border-white border rounded-3xl gap-6 max-md:w-2/3    max-md:order-2">
-      <h1 className="text-black text-2xl text-center">WeatherWise</h1>
+    <div
+      className="w-1/4 backdrop-blur-3xl opacity-90 py-8 flex flex-col items-center border-white border rounded-3xl gap-6 max-md:w-2/3    max-md:order-2 "
+      style={{ color: colorScheme[color]?.color }}
+    >
+      <h1 className=" text-2xl text-center">WeatherWise</h1>
       <div className="flex flex-col w-11/12 gap-2 ">
-        <p className="text-start text-gray-400 pl-1">Status</p>
+        <p className="text-start  pl-1">Status</p>
         <div className="backdrop-blur-3xl bg-slate-600 flex flex-col p-2 w-full rounded-2xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4 bg-gray-600 opacity-50 rounded-full px-2 py-1">
@@ -18,27 +21,22 @@ export const Card = () => {
                 className="-rotate-90 w-4"
                 alt=""
               />
-              <p className="text-gray-300">26.8%</p>
+              <p>26.8%</p>
             </div>
             <img src="../../assets/images/question.png" alt="" />
           </div>
           <div className="w-full h-28"></div>
         </div>
 
-        <button className="text-black text-center cursor-pointer">
+        <button className=" text-center cursor-pointer">
           <Link to={`/${globalData?.city.name.toLowerCase()}`}>
             See More details {">"}
           </Link>
         </button>
       </div>
       <div className="flex flex-col w-full items-center gap-4">
-        <div className="flex items-center justify-between w-11/12">
-          <p
-            className="text-gray-600"
-            style={{ color: colorScheme[color]?.color }}
-          >
-            Select Area
-          </p>
+        <div className="flex items-center justify-between w-11/12 ">
+          <p>Select Area</p>
           <div className="flex items-center gap-2">
             <img
               src="../../assets/images/cursor.png"

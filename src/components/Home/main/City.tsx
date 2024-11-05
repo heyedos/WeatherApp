@@ -51,13 +51,17 @@ export const City = () => {
       setGlobalData(apiData.data);
     }, [apiData.data]);
   }
+  const { colorScheme, color } = useContext(dataContext);
   return (
-    <div className="left bars w-9/12 flex flex-col gap-12 items-start max-xl:w-full">
+    <div
+      className="left bars w-9/12 flex flex-col gap-12 items-start max-xl:w-full text-red-900"
+      style={{ color: colorScheme[color]?.color }}
+    >
       <div className="location w-full flex items-center justify-start gap-4">
         <img src="../../assets/images/location.svg" alt="" className="w-6" />
-        <p className="text-2xl text-black">
+        <p className="text-2xl ">
           {globalData?.city.name + " " + globalData?.city.country}
-          <span className="text-gray-600">
+          <span>
             (
             {globalData
               ? new Date(globalData?.list[0].dt * 1000)
@@ -69,15 +73,15 @@ export const City = () => {
         </p>
       </div>
       <div className="degree flex items-center gap-4">
-        <h1 className="text-7xl text-black">
+        <h1 className="text-7xl ">
           {globalData?.list[0].main.temp
             ? (globalData?.list[0].main.temp - 273.15).toPrecision(2) + "°"
             : ""}
         </h1>
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-6 backdrop-blur-3xl px-5 py-1 rounded-full">
-            <p className="text-gray-500">H</p>
-            <p className="text-black">
+            <p className="text-gray-950">H</p>
+            <p className="">
               {globalData?.list[0].main.temp_max
                 ? (globalData?.list[0].main.temp_max - 273.15).toPrecision(2) +
                   "°"
@@ -85,8 +89,8 @@ export const City = () => {
             </p>
           </div>
           <div className="flex items-center gap-6 backdrop-blur-3xl px-5 py-1 rounded-full">
-            <p className="text-gray-500">L</p>
-            <p className="text-black">
+            <p className="text-gray-950">L</p>
+            <p className="">
               {globalData?.list[0].main.temp_min
                 ? (globalData?.list[0].main.temp_min - 273.15).toPrecision(2) +
                   "°"
@@ -95,7 +99,7 @@ export const City = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2 text-6xl text-gray-800">
+      <div className="flex flex-col gap-2 text-6xl ">
         <p>{globalData?.list[0].weather[0].main}</p>
         <p>{globalData?.list[0].weather[0].description}</p>
       </div>

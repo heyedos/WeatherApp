@@ -15,8 +15,8 @@ export const Home = () => {
     refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
   });
-  const { globalData, colorScheme } = useContext(dataContext);
-  const color: string = globalData?.list[0].weather[0].main;
+  const { colorScheme, color } = useContext(dataContext);
+
   if (isLoading)
     return (
       <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
@@ -26,9 +26,9 @@ export const Home = () => {
   return (
     <main
       className={
-        "w-full  min-h-screen flex py-6 pl-8 pr-1 max-md:flex-col max-md:pr-8 max-md:gap-8 max-md:items-center max-sm:px-1 bg-cover bg-Clear"
+        "w-full  min-h-screen flex py-6 pl-8 pr-1 max-md:flex-col max-md:pr-8 max-md:gap-8 max-md:items-center max-sm:px-1 bg-cover bg-Clouds"
       }
-      /* style={colorScheme[color]} */
+      style={colorScheme[color]}
     >
       <Card />
       <div className="flex flex-col items-center w-3/4 max-md:w-full min-h-full justify-between ">
