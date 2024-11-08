@@ -26,7 +26,7 @@ export const Home = () => {
   return (
     <main
       className={
-        "w-full  min-h-screen flex py-6 pl-8 pr-1 max-md:flex-col max-md:pr-8 max-md:gap-8 max-md:items-center max-sm:px-1 bg-cover bg-Clouds"
+        "w-full  min-h-screen flex py-6 pl-8 pr-1 max-md:flex-col max-md:pr-8 max-md:gap-8 max-md:items-center max-sm:px-1 bg-cover"
       }
       style={colorScheme[color]}
     >

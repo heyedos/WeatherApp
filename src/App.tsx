@@ -10,37 +10,38 @@ export const dataContext = createContext<any>(null);
 function App() {
   const queryClient = new QueryClient();
   const [globalData, setGlobalData] = useState<any>(null);
-  const color: string = "Mist";
+  const color: string = globalData?.list[0].weather[0].main;
+
   const colorScheme: any = {
     Clouds: {
       colorv2: "black",
       color: "black",
-      background: "url('../../assets/images/Clouds2.jpg')",
+      "background-image": "url('../../assets/images/Clouds2.jpg')",
     },
     Rain: {
       colorv2: "black",
       color: "black",
-      background: "url('../../assets/images/rain.jpg')",
+      "background-image": "url('../../assets/images/rain.jpg')",
     },
     Snow: {
       colorv2: "black",
       color: "black",
-      background: " url('../../assets/images/snow.png') ",
+      "background-image": " url('../../assets/images/snow.png') ",
     },
     Clear: {
       colorv2: "white ",
       color: "black",
-      background: "url('../../assets/images/sunny1.jpg')",
+      "background-image": "url('../../assets/images/sunny1.jpg')",
     },
     Thunderstorm: {
       colorv2: "white",
       color: "white",
-      background: "url('../../assets/images/thunderstorm.png')",
+      "background-image": "url('../../assets/images/thunderstorm.png')",
     },
     Mist: {
       colorv2: "black",
       color: "black",
-      background: "url('../../assets/images/mist.jpeg')",
+      "background-image": "url('../../assets/images/mist.jpeg')",
     },
   };
 

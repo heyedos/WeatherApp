@@ -96,7 +96,7 @@ export const LineChart = () => {
           callback: function (_: string | number, index: number): string {
             return globalData
               ? data.datasets[0].data[index] +
-                  " " +
+                  "° " +
                   globalData?.list[array[index]].weather[0].description
               : "error";
           },

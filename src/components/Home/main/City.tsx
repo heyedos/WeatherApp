@@ -5,7 +5,8 @@ import { fetchWeatherDays } from "../../../api/fetchWeather";
 import { useContext } from "react";
 import { dataContext } from "../../../App";
 export const City = () => {
-  const { globalData, setGlobalData } = useContext(dataContext);
+  const { globalData, setGlobalData, colorScheme, color } =
+    useContext(dataContext);
   const options: optionsProps = {
     weekday: "long",
     year: "numeric",
@@ -51,7 +52,7 @@ export const City = () => {
       setGlobalData(apiData.data);
     }, [apiData.data]);
   }
-  const { colorScheme, color } = useContext(dataContext);
+
   return (
     <div
       className="left bars w-9/12 flex flex-col gap-12 items-start max-xl:w-full text-red-900"
