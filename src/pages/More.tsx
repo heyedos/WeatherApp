@@ -8,6 +8,7 @@ import { useContext, useEffect } from "react";
 import classNames from "classnames";
 import { dataContext } from "../App";
 export const More = () => {
+  const { setGlobalData, globalData } = useContext(dataContext);
   const navigate = useNavigate();
   const { city } = useParams<{ city: string }>();
   const { isLoading, isError, data, refetch } = useQuery<weatherApp>({
@@ -16,11 +17,8 @@ export const More = () => {
     queryFn: () => fetchWeather(city as string),
     enabled: false,
     retry: false,
-    refetchOnMount: false,
     staleTime: Infinity,
   });
-
-  const { setGlobalData, globalData } = useContext(dataContext);
   useEffect(() => {
     if (data) {
       setGlobalData(data);

@@ -11,8 +11,14 @@ function App() {
   const queryClient = new QueryClient();
   const [globalData, setGlobalData] = useState<any>(null);
   const color: string = globalData?.list[0].weather[0].main;
-
-  const colorScheme: any = {
+  const colorScheme: Record<
+    "Clouds" | "Rain" | "Snow" | "Clear" | "Thunderstorm" | "Mist",
+    {
+      colorv2: string;
+      color: string;
+      backgroundImage: string;
+    }
+  > = {
     Clouds: {
       colorv2: "black",
       color: "black",
