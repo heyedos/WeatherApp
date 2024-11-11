@@ -16,32 +16,32 @@ function App() {
     Clouds: {
       colorv2: "black",
       color: "black",
-      "background-image": "url('../../assets/images/Clouds2.jpg')",
+      backgroundImage: "url('../../assets/images/Clouds2.jpg')",
     },
     Rain: {
       colorv2: "black",
       color: "black",
-      "background-image": "url('../../assets/images/rain.jpg')",
+      backgroundImage: "url('../../assets/images/rain.jpg')",
     },
     Snow: {
       colorv2: "black",
       color: "black",
-      "background-image": " url('../../assets/images/snow.png') ",
+      backgroundImage: " url('../../assets/images/snow.png') ",
     },
     Clear: {
       colorv2: "white ",
       color: "black",
-      "background-image": "url('../../assets/images/sunny1.jpg')",
+      backgroundImage: "url('../../assets/images/sunny1.jpg')",
     },
     Thunderstorm: {
       colorv2: "white",
       color: "white",
-      "background-image": "url('../../assets/images/thunderstorm.png')",
+      backgroundImage: "url('../../assets/images/thunderstorm.png')",
     },
     Mist: {
       colorv2: "black",
       color: "black",
-      "background-image": "url('../../assets/images/mist.jpeg')",
+      backgroundImage: "url('../../assets/images/mist.jpeg')",
     },
   };
 

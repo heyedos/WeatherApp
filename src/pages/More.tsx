@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { weatherApp } from "../types";
 import { fetchWeather } from "../api/getWeather";
@@ -16,8 +16,12 @@ export const More = () => {
     queryFn: () => fetchWeather(city as string),
     enabled: !!city,
     retry: false,
+    refetchOnMount: false,
     staleTime: Infinity,
+    placeholderData: keepPreviousData,
   });
+  console.log(data);
+
   const { setGlobalData, globalData } = useContext(dataContext);
   useEffect(() => {
     setGlobalData(data);
@@ -35,7 +39,7 @@ export const More = () => {
   ) : (
     <main
       className={classNames(
-        "w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 ",
+        "w-full items-center flex flex-col gap-6 min-h-screen  pt-10 bg-slate-900 max-md:pt-0 bg-cover",
         {
           "bg-Clouds": "Clouds" === globalData?.list[0].weather[0].main,
           "bg-Rain": "Rain" === globalData?.list[0].weather[0].main,

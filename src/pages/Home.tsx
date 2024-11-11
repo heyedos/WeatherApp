@@ -13,7 +13,9 @@ export const Home = () => {
     queryKey: ["forecast"],
     enabled: false,
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
     placeholderData: keepPreviousData,
+    staleTime: Infinity,
   });
   const { colorScheme, color } = useContext(dataContext);
 

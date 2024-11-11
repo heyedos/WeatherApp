@@ -28,10 +28,17 @@ export const Card = () => {
           <div className="w-full h-28"></div>
         </div>
 
-        <button className=" text-center cursor-pointer">
-          <Link to={`/${globalData?.city.name.toLowerCase()}`}>
-            See More details {">"}
-          </Link>
+        <button
+          className=" text-center cursor-pointer"
+          /* onClick={() => {
+            navigator(`/${globalData?.city.name.toLowerCase()}`);
+          }} */
+        >
+          {
+            <Link to={`/${globalData?.city.name.toLowerCase()}`}>
+              See More details {">"}
+            </Link>
+          }
         </button>
       </div>
       <div className="flex flex-col w-full items-center gap-4">

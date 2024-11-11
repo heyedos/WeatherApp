@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { optionsProps, weatherApp } from "../../../types";
 import { fetchWeatherDays } from "../../../api/fetchWeather";
@@ -40,6 +40,9 @@ export const City = () => {
     queryFn: () => fetchWeatherDays(lat as string, lon as string),
     enabled: !!handleLocation && !!lat && !!lon,
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    staleTime: Infinity,
+    placeholderData: keepPreviousData,
   });
 
   if (!apiData.data) {
