@@ -10,7 +10,7 @@ export const Main = () => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
 
-  const { refetch, data } = useQuery({
+  const { refetch } = useQuery({
     queryKey: ["forecast"],
     queryFn: () => fetchWeather(inputValue),
     enabled: false,
@@ -18,7 +18,6 @@ export const Main = () => {
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
   });
-  console.log(data);
 
   return (
     <div>

@@ -4,7 +4,6 @@ import { useContext } from "react";
 
 export const Card = () => {
   const { globalData, colorScheme, color } = useContext(dataContext);
-
   return (
     <div
       className="w-1/4 backdrop-blur-3xl opacity-90 py-8 flex flex-col items-center border-white border rounded-3xl gap-6 max-md:w-2/3    max-md:order-2 "
@@ -27,18 +26,8 @@ export const Card = () => {
           </div>
           <div className="w-full h-28"></div>
         </div>
-
-        <button
-          className=" text-center cursor-pointer"
-          /* onClick={() => {
-            navigator(`/${globalData?.city.name.toLowerCase()}`);
-          }} */
-        >
-          {
-            <Link to={`/${globalData?.city.name.toLowerCase()}`}>
-              See More details {">"}
-            </Link>
-          }
+        <button className=" text-center cursor-pointer">
+          {<Link to={`/${globalData?.city.name}`}>See More details {">"}</Link>}
         </button>
       </div>
       <div className="flex flex-col w-full items-center gap-4">

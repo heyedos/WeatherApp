@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { weatherApp } from "../types";
 import { fetchWeather } from "../api/getWeather";
@@ -10,27 +10,28 @@ import { dataContext } from "../App";
 export const More = () => {
   const navigate = useNavigate();
   const { city } = useParams<{ city: string }>();
-  const { isLoading, isError, data } = useQuery<weatherApp>({
+  const { isLoading, isError, data, refetch } = useQuery<weatherApp>({
     queryKey: ["forecast"],
     refetchOnWindowFocus: false,
     queryFn: () => fetchWeather(city as string),
-    enabled: !!city,
+    enabled: false,
     retry: false,
     refetchOnMount: false,
     staleTime: Infinity,
-    placeholderData: keepPreviousData,
   });
-  console.log(data);
 
   const { setGlobalData, globalData } = useContext(dataContext);
   useEffect(() => {
-    setGlobalData(data);
-  }, [data]);
-  useEffect(() => {
+    if (data) {
+      setGlobalData(data);
+    }
+    if (!globalData && !data) {
+      refetch();
+    }
     if (isError) {
       navigate("/");
     }
-  }, [isError]);
+  }, [data, isError]);
 
   return isLoading ? (
     <div className="flex justify-center items-center min-h-screen w-full bg-slate-700">
@@ -63,7 +64,7 @@ export const More = () => {
       </Toaster>
       <div className=" backdrop-blur-xl  flex flex-col items-center text-gray-200 gap-3 py-6 rounded-md px-4 text-center">
         <h1 className="text-4xl max-sm:text-xl">
-          {city?.toUpperCase() + "/" + globalData?.city.country}
+          {city + "/" + globalData?.city.country}
         </h1>
         <div className="flex items-center gap-4 max-md:flex-col">
           <p className="text-2xl">
